@@ -1,10 +1,6 @@
 import {
-  Component, ElementRef,
-  inject,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  ViewEncapsulation
+  Component, ElementRef, inject, OnDestroy,
+  OnInit, ViewChild, ViewEncapsulation
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from "@angular/forms";
@@ -14,7 +10,6 @@ import {Subscription} from "rxjs";
 import {TaskInterface} from "../../commons/interfaces/task.interface";
 import {TasksService} from "../../commons/services/tasks.service";
 import {TaskComponent} from "./task/task.component";
-import {TaskStateEnum} from "../../commons/enums/task-state.enum";
 
 @Component({
   selector: 'app-tasks',
@@ -26,12 +21,11 @@ import {TaskStateEnum} from "../../commons/enums/task-state.enum";
 })
 export class TasksComponent implements OnInit, OnDestroy {
 
+  @ViewChild('toggleAllTasksElRef')
+  private toggleAllTasksElRef: ElementRef<HTMLInputElement> | undefined;
+
   private tasksService: TasksService = inject(TasksService);
   private subscriptions: Subscription = new Subscription();
-  private taskId: number = 20; // TODO Move after from this place
-
-  @ViewChild('toggleAllTasksElRef')
-  private toggleAllTasksElRef: ElementRef<HTMLInputElement> | undefined
 
   tasksList: TaskInterface[] = [];
   isAllTasksChecked: boolean | null = null;
@@ -79,18 +73,7 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
 
   addNew(): void {
-    const taskId: number = this.taskId++;
-    const taskModel: TaskInterface = {
-      id: taskId,
-      name: `Task ${taskId}`,
-      description: `Description for new Task id ${taskId}`,
-      checked: this.isAllTasksChecked as boolean,
-      createdAt: new Date(),
-      modifiedAt: null,
-      state: TaskStateEnum.InQueue
-    };
-    console.log(taskModel);
-    this.tasksService.create(taskModel);
+
   }
 
   deleteTasks(): void {
