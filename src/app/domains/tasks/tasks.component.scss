@@ -84,6 +84,14 @@
           td {
             padding-left: 10px;
 
+            &:first-of-type {
+
+              input {
+                margin: 0;
+              }
+
+            }
+
             &:last-of-type {
               display: flex;
               align-items: center;

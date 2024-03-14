@@ -1,6 +1,8 @@
 @import "primeicons/primeicons.css";
+
 @import "./variables";
 @import "./assets/mixins/button.mixin";
+@import "./assets/mixins/form-group-input.mixin";
 
 html, body {
   height: 100%;
@@ -11,4 +13,5 @@ html, body {
   background-color: $main-background-color;
 
   @include app-button;
+  @include form-group-input;
 }

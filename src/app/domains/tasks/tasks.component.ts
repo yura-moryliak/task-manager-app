@@ -9,14 +9,13 @@ import {Subscription} from "rxjs";
 
 import {TaskInterface} from "../../commons/interfaces/task.interface";
 import {TasksService} from "../../commons/services/tasks.service";
-import {TaskComponent} from "./task/task.component";
 import {DynamicSidebarService} from "../../commons/services/dynamic-sidebar.service";
 import {TaskCreateUpdateComponent} from "./task-create-update/task-create-update.component";
 
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [CommonModule, TaskComponent, FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.scss'],
   encapsulation: ViewEncapsulation.None
@@ -31,18 +30,18 @@ export class TasksComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription = new Subscription();
 
   tasksList: TaskInterface[] = [];
-  isAllTasksChecked: boolean | null = null;
+  areAllTasksChecked: boolean | null = null;
   areSomeTasksCheckedToDelete: boolean = false;
 
   ngOnInit(): void {
     this.initTasksList();
   }
 
-  toggleAllTasks(): void {
-    this.isAllTasksChecked = !this.isAllTasksChecked;
+  toggleAll(): void {
+    this.areAllTasksChecked = !this.areAllTasksChecked;
 
     this.tasksList.map((task: TaskInterface) => {
-      task.checked = this.isAllTasksChecked as boolean;
+      task.checked = this.areAllTasksChecked as boolean;
       return task;
     });
   }
@@ -55,15 +54,15 @@ export class TasksComponent implements OnInit, OnDestroy {
     const areSomeTasksCheckedToDelete: boolean = this.tasksList.some((task: TaskInterface) => !task.checked);
 
     if (areSomeTasksUnChecked) {
-      this.isAllTasksChecked = null;
+      this.areAllTasksChecked = null;
       setTimeout(
           () => this.toggleAllTasksElRef!.nativeElement.checked = false,
           100
       );
     }
 
-    if (areAllChecked && !this.isAllTasksChecked) {
-      this.isAllTasksChecked = true;
+    if (areAllChecked && !this.areAllTasksChecked) {
+      this.areAllTasksChecked = true;
       setTimeout(
           () => this.toggleAllTasksElRef!.nativeElement.checked = true,
           100
@@ -76,11 +75,21 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
 
   addNew(): void {
-    this.dynamicSidebarService.open(TaskCreateUpdateComponent);
+    this.dynamicSidebarService.open<TaskCreateUpdateComponent>(TaskCreateUpdateComponent);
+  }
+
+  updateOne(event: Event, task: TaskInterface): void {
+    event.stopPropagation();
+    this.tasksService.transferTaskToUpdate(task);
+    this.dynamicSidebarService.open<TaskCreateUpdateComponent>(TaskCreateUpdateComponent);
+  }
+
+  deleteOne(event: Event, task: TaskInterface): void {
+    event.stopPropagation();
+    this.tasksService.delete(task.id);
   }
 
   deleteTasks(): void {
-
     if (this.areSomeTasksCheckedToDelete) {
       const tasksCheckedToDelete: TaskInterface[] = this.tasksList.filter((task: TaskInterface) => task.checked);
       this.tasksService.deleteSelected(tasksCheckedToDelete);
@@ -88,13 +97,8 @@ export class TasksComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.isAllTasksChecked = false;
+    this.areAllTasksChecked = false;
     this.tasksService.deleteAll();
-  }
-
-  deleteOne(event: Event, task: TaskInterface): void {
-    event.stopPropagation();
-    this.tasksService.delete(task.id);
   }
 
   ngOnDestroy(): void {
@@ -103,7 +107,20 @@ export class TasksComponent implements OnInit, OnDestroy {
 
   private initTasksList(): void {
     const tasksDataSubscription: Subscription = this.tasksService.tasksList$.subscribe(
-        (tasksList: TaskInterface[]) => this.tasksList = tasksList);
+        (tasksList: TaskInterface[]) => {
+          this.tasksList = tasksList;
+
+          if (this.areAllTasksChecked) {
+            this.updateTasksChecked();
+          }
+        });
     this.subscriptions.add(tasksDataSubscription);
+  }
+
+  private updateTasksChecked(): void {
+    this.tasksList.map((task: TaskInterface) => {
+      task.checked = true;
+      return task;
+    });
   }
 }

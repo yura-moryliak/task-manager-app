@@ -1,1 +1,33 @@
-<p>task-create-update works!</p>
+<form class="app-tasks-create-update" [formGroup]="form">
+
+  <h4>{{ isUpdateMode ? 'Update' : 'Create' }} task</h4>
+
+  <div class="app-form-group-input">
+    <label for="name">Name</label>
+    <input id="name" type="text" placeholder="Provide task name" formControlName="name" />
+
+    <div class="app-form-group-input-errors"
+         *ngIf="form.controls.name.invalid && form.controls.name.dirty || form.controls.name.touched">
+      <span *ngIf="form.controls.name.errors?.['required']">This field is required</span>
+    </div>
+  </div>
+
+  <div class="app-form-group-input">
+    <label for="description">Description</label>
+    <input id="description" type="text" placeholder="Provide task description" formControlName="description" />
+
+    <div class="app-form-group-input-errors"
+         *ngIf="form.controls.description.invalid && form.controls.description.dirty || form.controls.description.touched">
+      <span *ngIf="form.controls.description.errors?.['required']">This field is required</span>
+    </div>
+  </div>
+
+  <button class="app-button-primary" *ngIf="!isUpdateMode" [disabled]="form.invalid" (click)="createTask()">
+    <span>Create task</span>
+  </button>
+
+  <button class="app-button-primary" *ngIf="isUpdateMode" [disabled]="form.invalid" (click)="updateTask()">
+    <span>{{ isUpdateMode ? 'Update' : 'Create' }} task</span>
+  </button>
+
+</form>

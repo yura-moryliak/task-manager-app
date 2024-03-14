@@ -24,6 +24,10 @@ export class TasksService implements DataManageInterface<TaskInterface>{
     return this.tasksListBehaviorSubject.asObservable();
   }
 
+  get taskToUpdate$(): Observable<TaskInterface | null> {
+    return this.taskTransferBehaviorSubject.asObservable();
+  }
+
   private tasksList: TaskInterface[] = [
     {
       id: 1,
@@ -47,17 +51,28 @@ export class TasksService implements DataManageInterface<TaskInterface>{
 
   private dataStorageService: DataStorageService = inject(DataStorageService);
   private tasksListBehaviorSubject: BehaviorSubject<TaskInterface[]> = new BehaviorSubject<TaskInterface[]>(this.tasksList);
+  protected taskTransferBehaviorSubject: BehaviorSubject<TaskInterface | null> = new BehaviorSubject<TaskInterface | null>(null);
 
   getList(): TaskInterface[] {
     return this.tasksList;
   }
 
-  create(model: TaskInterface): void {
-    this.tasksList = [...this.tasksList, model];
+  create(createModel: Partial<TaskInterface>): void {
+    createModel.id = Date.now();
+    createModel.createdAt = new Date();
+    createModel.modifiedAt = null;
+    createModel.state = TaskStateEnum.InQueue;
+
+    this.tasksList = [...this.tasksList, createModel as TaskInterface];
     this.tasksListBehaviorSubject.next(this.tasksList);
   }
 
-  update(taskId: number, updateModel: TaskInterface): void {
+  update(updateModel: Partial<TaskInterface>): void {
+    console.log(this.tasksList, updateModel);
+  }
+
+  transferTaskToUpdate(updateModel: TaskInterface): void {
+    this.taskTransferBehaviorSubject.next(updateModel);
   }
 
   delete(taskId: number): void {
@@ -74,4 +89,5 @@ export class TasksService implements DataManageInterface<TaskInterface>{
     this.tasksList = this.tasksList.filter((task: TaskInterface) => !tasksList.includes(task));
     this.tasksListBehaviorSubject.next(this.tasksList);
   }
+
 }

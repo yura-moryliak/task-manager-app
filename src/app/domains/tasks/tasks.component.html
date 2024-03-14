@@ -11,8 +11,8 @@
       <button class="app-button-rounded" (click)="addNew()">
         <i class="pi pi-plus-circle"></i>
       </button>
-      <button class="app-button-primary" (click)="deleteTasks()" [disabled]="!isAllTasksChecked && !areSomeTasksCheckedToDelete">
-        {{ isAllTasksChecked ? 'Delete all' : areSomeTasksCheckedToDelete ? 'Delete selected': 'No selected tasks' }}
+      <button class="app-button-primary" (click)="deleteTasks()" [disabled]="!areAllTasksChecked && !areSomeTasksCheckedToDelete">
+        {{ areAllTasksChecked ? 'Delete all' : areSomeTasksCheckedToDelete ? 'Delete selected': 'No selected tasks' }}
       </button>
     </div>
   </header>
@@ -24,8 +24,8 @@
           <th>
             <input type="checkbox"
                    #toggleAllTasksElRef
-                   (change)="toggleAllTasks()"
-                   [indeterminate]="isAllTasksChecked === null" />
+                   (change)="toggleAll()"
+                   [indeterminate]="areAllTasksChecked === null" />
           </th>
           <th>Name</th>
           <th>Description</th>
@@ -43,13 +43,13 @@
           </td>
           <td>{{ task.name }}</td>
           <td>{{ task.description }}</td>
-          <td>{{ task.createdAt | date : 'medium' }}</td>
-          <td>{{ task.modifiedAt ? (task.modifiedAt | date : 'medium') : 'Not yet modified' }}</td>
+          <td>{{ task.createdAt | date : 'EEE, MMM d, y, HH:mm:ss' }}</td>
+          <td>{{ task.modifiedAt ? (task.modifiedAt | date : 'EEE, MMM d, y, HH:mm:ss') : 'Not yet modified' }}</td>
           <td>{{ task.state }}</td>
           <td>Ymrlk</td>
           <td>
 
-            <button class="app-button-rounded">
+            <button class="app-button-rounded" (click)="updateOne($event, task)">
               <i class="pi pi-pencil"></i>
             </button>
 

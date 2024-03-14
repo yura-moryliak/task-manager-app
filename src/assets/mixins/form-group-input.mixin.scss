@@ -1,0 +1,46 @@
+@import "../../variables";
+
+@mixin form-group-input() {
+
+  .app-form-group-input {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+
+    label {
+      margin-bottom: 10px;
+      font-size: 12px;
+    }
+
+    input[type=text] {
+      border: none;
+      background-color: $element-background-color;
+      height: 40px;
+      outline: none;
+      color: $main-text-color;
+      padding-left: 5px;
+
+      &:focus {
+        outline: 1px solid $border-color;
+      }
+    }
+
+    .app-form-group-input-errors {
+      margin-top: 5px;
+
+      >span {
+        display: flex;
+        flex-direction: column;
+        color: $error_color;
+        font-size: 12px;
+        font-family: sans-serif;
+
+        p {
+          margin: 0 0 5px 0;
+        }
+      }
+    }
+
+  }
+
+}
