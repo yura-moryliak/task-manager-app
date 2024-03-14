@@ -1,0 +1,35 @@
+<div class="app-user-card" *ngIf="user">
+
+  <div class="app-user-card-container">
+
+    <div class="app-user-card-info">
+
+      <div class="side-container">
+        <img [src]="user.avatarBae64" alt="{{ user.firstName }} {{ user.lastName }}" />
+      </div>
+
+      <div class="side-container">
+        <span>{{ user.firstName }} {{ user.lastName }}</span>
+      </div>
+
+    </div>
+
+    <div class="app-user-card-actions">
+
+      <button class="app-button-rounded" (click)="update(user)">
+        <i class="pi pi-pencil"></i>
+      </button>
+
+      <button class="app-button-rounded" (click)="delete()">
+        <i class="pi pi-trash"></i>
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="app-user-card-content">
+    Content
+  </div>
+
+</div>

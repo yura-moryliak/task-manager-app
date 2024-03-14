@@ -1,7 +1,6 @@
-<section class="app-tasks-container">
+<section class="app-domain-container">
 
-  <header class="app-tasks-header">
-
+  <header class="app-domain-header">
     <div class="side-container">
       <span>Tasks board</span>
       <i>Available tasks: {{ tasksList.length }}</i>
@@ -17,7 +16,7 @@
     </div>
   </header>
 
-  <div class="app-tasks-content" *ngIf="tasksList.length > 0; else emptyTasksList">
+  <div class="app-domain-content" *ngIf="tasksList.length > 0; else emptyTasksList">
     <table>
       <thead>
         <tr>
@@ -64,7 +63,7 @@
   </div>
 
   <ng-template #emptyTasksList>
-    <div class="app-tasks-empty-container">
+    <div class="app-domain-empty-container">
       <h4>No available tasks</h4>
       <button class="app-button-primary" (click)="addNew()">
         <i class="pi pi-plus-circle"></i>

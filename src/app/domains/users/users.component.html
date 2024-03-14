@@ -1,1 +1,30 @@
-<p>users works!</p>
+<section class="app-domain-container">
+
+  <header class="app-domain-header">
+    <div class="side-container">
+      <span>Users</span>
+      <i>Added users: {{ usersList.length }}</i>
+    </div>
+
+    <div class="side-container" [ngStyle]="{ 'display': usersList.length ? 'flex' : 'none' }">
+      <button class="app-button-rounded" (click)="addNew()">
+        <i class="pi pi-plus-circle"></i>
+      </button>
+    </div>
+  </header>
+
+  <div class="app-domain-content" *ngIf="usersList.length > 0; else emptyUsersList">
+    <app-user *ngFor="let user of usersList" [user]="user"></app-user>
+  </div>
+
+  <ng-template #emptyUsersList>
+    <div class="app-domain-empty-container">
+      <h4>No added users</h4>
+      <button class="app-button-primary" (click)="addNew()">
+        <i class="pi pi-plus-circle"></i>
+        Add new user
+      </button>
+    </div>
+  </ng-template>
+
+</section>

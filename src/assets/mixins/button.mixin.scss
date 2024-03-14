@@ -29,6 +29,19 @@
       opacity: $common-opacity;
       cursor: default;
     }
+
+    label {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      input[type=file] {
+        display: none;
+      }
+    }
+
   }
 
   .app-button-rounded {

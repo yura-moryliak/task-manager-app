@@ -1,0 +1,48 @@
+@import "../../../../variables";
+
+.app-user-card {
+  display: flex;
+  flex-direction: column;
+  background-color: $element-background-color;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  border-radius: $border-radius;
+
+  .app-user-card-container {
+    display: flex;
+    margin-bottom: 10px;
+
+    .app-user-card-info {
+      display: flex;
+      flex: 1;
+
+      .side-container {
+        display: flex;
+        align-items: center;
+
+        img {
+          width: 40px;
+          height: 40px;
+          object-fit: cover;
+          border-radius: 100%;
+          margin: 0 10px;
+        }
+      }
+
+    }
+
+    .app-user-card-actions {
+      display: flex;
+      justify-content: flex-end;
+      flex: 1;
+
+      button {
+        margin: 0 10px;
+      }
+    }
+  }
+
+  .app-user-card-content {
+    padding: 0 10px;
+  }
+}

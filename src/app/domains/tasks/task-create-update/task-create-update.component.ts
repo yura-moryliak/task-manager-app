@@ -48,8 +48,6 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
     this.taskToUpdate.name = this.form.value.name as string;
     this.taskToUpdate.description = this.form.value.description as string;
     this.taskToUpdate.modifiedAt = new Date();
-
-    this.tasksService.update(this.taskToUpdate);
     this.dynamicSidebarService.close();
   }
 

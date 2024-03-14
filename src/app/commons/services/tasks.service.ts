@@ -5,12 +5,11 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {TaskInterface} from '../interfaces/task.interface';
 import {TaskStateEnum} from '../enums/task-state.enum';
 import {DataStorageService} from './data-storage.service';
-import {DataCRUDInterface} from '../interfaces/data-crud.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TasksService implements DataCRUDInterface<TaskInterface>{
+export class TasksService {
 
   get tasksList$(): Observable<TaskInterface[]> {
     return this.tasksListBehaviorSubject.asObservable();
@@ -45,10 +44,6 @@ export class TasksService implements DataCRUDInterface<TaskInterface>{
   private tasksListBehaviorSubject: BehaviorSubject<TaskInterface[]> = new BehaviorSubject<TaskInterface[]>(this.tasksList);
   protected taskTransferBehaviorSubject: BehaviorSubject<TaskInterface | null> = new BehaviorSubject<TaskInterface | null>(null);
 
-  getList(): TaskInterface[] {
-    return this.tasksList;
-  }
-
   create(createModel: Partial<TaskInterface>): void {
     createModel.id = Date.now();
     createModel.createdAt = new Date();
@@ -59,11 +54,7 @@ export class TasksService implements DataCRUDInterface<TaskInterface>{
     this.tasksListBehaviorSubject.next(this.tasksList);
   }
 
-  update(updateModel: Partial<TaskInterface>): void {
-    console.log(this.tasksList, updateModel);
-  }
-
-  transferTaskToUpdate(updateModel: TaskInterface): void {
+  transferTaskToUpdate(updateModel: TaskInterface | null): void {
     this.taskTransferBehaviorSubject.next(updateModel);
   }
 

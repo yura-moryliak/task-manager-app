@@ -1,0 +1,52 @@
+<form class="app-user-create-update" [formGroup]="form">
+
+  <h4>{{ isUpdateMode ? 'Update' : 'Add' }} user</h4>
+
+  <div class="app-user-upload-avatar">
+
+    <div class="app-user-upload-avatar-errors">
+      <small class="warn" *ngIf="!isAvatarMaxSizeError">Avatar size has to be less than 1Mb</small>
+      <small class="error" *ngIf="isAvatarMaxSizeError">Avatar size exceeds 1Mb</small>
+    </div>
+
+    <div class="app-user-upload-avatar-actions">
+      <img [src]="form.controls.avatarBae64.value" alt="avatar" />
+      <button class="app-button-primary">
+        <label for="avatar">
+          Change avatar
+          <input type="file" id="avatar" accept="image/*" (change)="changeAvatar($event)">
+        </label>
+      </button>
+    </div>
+
+  </div>
+
+  <div class="app-form-group-input">
+    <label for="firstName">First name</label>
+    <input id="firstName" type="text" placeholder="Type in user first name" formControlName="firstName" />
+
+    <div class="app-form-group-input-errors"
+         *ngIf="form.controls.firstName.invalid && form.controls.firstName.dirty || form.controls.firstName.touched">
+      <span *ngIf="form.controls.firstName.errors?.['required']">This field is required</span>
+    </div>
+  </div>
+
+  <div class="app-form-group-input">
+    <label for="lastName">First name</label>
+    <input id="lastName" type="text" placeholder="Type in user last name" formControlName="lastName" />
+
+    <div class="app-form-group-input-errors"
+         *ngIf="form.controls.lastName.invalid && form.controls.lastName.dirty || form.controls.lastName.touched">
+      <span *ngIf="form.controls.lastName.errors?.['required']">This field is required</span>
+    </div>
+  </div>
+
+  <button class="app-button-primary" *ngIf="!isUpdateMode" [disabled]="form.invalid" (click)="createUser()">
+    <span>Create user</span>
+  </button>
+
+  <button class="app-button-primary" *ngIf="isUpdateMode" [disabled]="form.invalid" (click)="updateUser()">
+    <span>Update user</span>
+  </button>
+
+</form>
