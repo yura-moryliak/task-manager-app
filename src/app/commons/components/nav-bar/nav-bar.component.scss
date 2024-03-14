@@ -1,0 +1,23 @@
+@import "../../../../variables";
+
+.app-nav-bar {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  padding: 0 10px;
+  border-bottom: 1px solid $border-color;
+
+  .app-nav-bar-logo {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 25px;
+      height: 25px;
+    }
+
+    span {
+      margin-left: 10px;
+    }
+  }
+}

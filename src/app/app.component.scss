@@ -1,0 +1,15 @@
+.app-main {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .app-main-container {
+    display: flex;
+    height: inherit;
+
+    .app-main-content {
+      width: 100%;
+      padding: 10px;
+    }
+  }
+}
