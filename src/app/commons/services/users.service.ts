@@ -15,7 +15,7 @@ export class UsersService {
     return this.usersListBehaviorSubject.asObservable();
   }
 
-  get userToUpdate$(): Observable<UserInterface | null> {
+  get userToUpdate$(): Observable<UserInterface | undefined> {
     return this.userTransferBehaviorSubject.asObservable();
   }
 
@@ -36,7 +36,7 @@ export class UsersService {
 
   private dataStorageService: DataStorageService = inject(DataStorageService);
   private usersListBehaviorSubject: BehaviorSubject<UserInterface[]> = new BehaviorSubject(this.usersList);
-  protected userTransferBehaviorSubject: BehaviorSubject<UserInterface | null> = new BehaviorSubject<UserInterface | null>(null);
+  protected userTransferBehaviorSubject: BehaviorSubject<UserInterface | undefined> = new BehaviorSubject<UserInterface | undefined>(undefined);
 
   create(createModel: Partial<UserInterface>): void {
     createModel.id = Date.now();
@@ -44,7 +44,7 @@ export class UsersService {
     this.usersListBehaviorSubject.next(this.usersList);
   }
 
-  transferUserToUpdate(updateModel: UserInterface | null): void {
+  transferUserToUpdate(updateModel: UserInterface | undefined = undefined): void {
     this.userTransferBehaviorSubject.next(updateModel);
   }
 

@@ -77,7 +77,7 @@ export class TasksComponent implements OnInit, OnDestroy {
 
   // TODO Move into own component as app-table-row
   addNew(): void {
-    this.tasksService.transferTaskToUpdate(null);
+    this.tasksService.transferTaskToUpdate();
     this.dynamicSidebarService.open<TaskCreateUpdateComponent>(TaskCreateUpdateComponent);
   }
 

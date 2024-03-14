@@ -15,7 +15,7 @@ export class TasksService {
     return this.tasksListBehaviorSubject.asObservable();
   }
 
-  get taskToUpdate$(): Observable<TaskInterface | null> {
+  get taskToUpdate$(): Observable<TaskInterface | undefined> {
     return this.taskTransferBehaviorSubject.asObservable();
   }
 
@@ -42,7 +42,7 @@ export class TasksService {
 
   private dataStorageService: DataStorageService = inject(DataStorageService);
   private tasksListBehaviorSubject: BehaviorSubject<TaskInterface[]> = new BehaviorSubject<TaskInterface[]>(this.tasksList);
-  protected taskTransferBehaviorSubject: BehaviorSubject<TaskInterface | null> = new BehaviorSubject<TaskInterface | null>(null);
+  protected taskTransferBehaviorSubject: BehaviorSubject<TaskInterface | undefined> = new BehaviorSubject<TaskInterface | undefined>(undefined);
 
   create(createModel: Partial<TaskInterface>): void {
     createModel.id = Date.now();
@@ -54,7 +54,7 @@ export class TasksService {
     this.tasksListBehaviorSubject.next(this.tasksList);
   }
 
-  transferTaskToUpdate(updateModel: TaskInterface | null): void {
+  transferTaskToUpdate(updateModel: TaskInterface | undefined = undefined): void {
     this.taskTransferBehaviorSubject.next(updateModel);
   }
 

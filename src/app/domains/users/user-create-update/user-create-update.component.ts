@@ -90,7 +90,7 @@ export class UserCreateUpdateComponent implements OnInit, OnDestroy {
   }
 
   private initUpdateUser(): void {
-    const updateUserDataSubscription: Subscription = this.usersService.userToUpdate$.subscribe((user: UserInterface | null) => {
+    const updateUserDataSubscription: Subscription = this.usersService.userToUpdate$.subscribe((user: UserInterface | undefined) => {
       if (user) {
         this.isUpdateMode = true;
         this.userToUpdate = user;

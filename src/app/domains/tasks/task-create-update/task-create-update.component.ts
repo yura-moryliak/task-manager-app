@@ -56,7 +56,7 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
   }
 
   private initUpdateTask(): void {
-    const updateTaskDataSubscription: Subscription = this.tasksService.taskToUpdate$.subscribe((task: TaskInterface | null) => {
+    const updateTaskDataSubscription: Subscription = this.tasksService.taskToUpdate$.subscribe((task: TaskInterface | undefined) => {
       if (task) {
         this.isUpdateMode = true;
         this.taskToUpdate = task;

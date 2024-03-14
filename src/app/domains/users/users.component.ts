@@ -31,7 +31,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   addNew(): void {
-    this.usersService.transferUserToUpdate(null);
+    this.usersService.transferUserToUpdate();
     this.dynamicSidebarService.open<UserCreateUpdateComponent>(UserCreateUpdateComponent);
   }
 
