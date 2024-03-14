@@ -10,6 +10,8 @@ import {Subscription} from "rxjs";
 import {TaskInterface} from "../../commons/interfaces/task.interface";
 import {TasksService} from "../../commons/services/tasks.service";
 import {TaskComponent} from "./task/task.component";
+import {DynamicSidebarService} from "../../commons/services/dynamic-sidebar.service";
+import {TaskCreateUpdateComponent} from "./task-create-update/task-create-update.component";
 
 @Component({
   selector: 'app-tasks',
@@ -25,6 +27,7 @@ export class TasksComponent implements OnInit, OnDestroy {
   private toggleAllTasksElRef: ElementRef<HTMLInputElement> | undefined;
 
   private tasksService: TasksService = inject(TasksService);
+  private dynamicSidebarService: DynamicSidebarService = inject(DynamicSidebarService);
   private subscriptions: Subscription = new Subscription();
 
   tasksList: TaskInterface[] = [];
@@ -73,7 +76,7 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
 
   addNew(): void {
-
+    this.dynamicSidebarService.open(TaskCreateUpdateComponent);
   }
 
   deleteTasks(): void {

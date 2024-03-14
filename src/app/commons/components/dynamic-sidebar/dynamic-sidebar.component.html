@@ -1,0 +1,13 @@
+<aside class="app-dynamic-sidebar" *ngIf="component">
+
+  <header class="app-dynamic-sidebar-header">
+    <button class="app-button-rounded" (click)="close()">
+      <i class="pi pi-times-circle"></i>
+    </button>
+  </header>
+
+  <section class="app-dynamic-sidebar-content">
+    <ng-container *ngComponentOutlet="component"></ng-container>
+  </section>
+
+</aside>
