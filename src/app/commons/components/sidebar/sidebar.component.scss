@@ -24,7 +24,7 @@
         width: 100%;
         text-decoration: none;
         color: $main-text-color;
-        transition: 0.3s ease-in;
+        transition: $common-transition;
 
         &.active {
           border-left: 3px solid $border-color;

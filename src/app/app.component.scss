@@ -6,6 +6,7 @@
   .app-main-container {
     display: flex;
     height: inherit;
+    overflow: hidden;
 
     .app-main-content {
       width: 100%;

@@ -1,5 +1,6 @@
 @import "primeicons/primeicons.css";
 @import "./variables";
+@import "./assets/mixins/button.mixin";
 
 html, body {
   height: 100%;
@@ -9,4 +10,6 @@ html, body {
   font-feature-settings: initial;
   font-family: sans-serif;
   background-color: $main-background-color;
+
+  @include app-button;
 }

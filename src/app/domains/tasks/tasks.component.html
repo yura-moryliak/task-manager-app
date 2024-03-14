@@ -1,1 +1,76 @@
-<p>tasks works!</p>
+<section class="app-tasks-container">
+
+  <header class="app-tasks-header">
+
+    <div class="side-container">
+      <span>Tasks board</span>
+      <i>Available tasks: {{ tasksList.length }}</i>
+    </div>
+
+    <div class="side-container" [ngStyle]="{ 'display': tasksList.length ? 'flex' : 'none' }">
+      <button class="app-button-rounded" (click)="addNew()">
+        <i class="pi pi-plus-circle"></i>
+      </button>
+      <button class="app-button-primary" (click)="deleteTasks()" [disabled]="!isAllTasksChecked && !areSomeTasksCheckedToDelete">
+        {{ isAllTasksChecked ? 'Delete all' : areSomeTasksCheckedToDelete ? 'Delete selected': 'No selected tasks' }}
+      </button>
+    </div>
+  </header>
+
+  <div class="app-tasks-content" *ngIf="tasksList.length > 0; else emptyTasksList">
+    <table>
+      <thead>
+        <tr>
+          <th>
+            <input type="checkbox"
+                   #toggleAllTasksElRef
+                   (change)="toggleAllTasks()"
+                   [indeterminate]="isAllTasksChecked === null" />
+          </th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Create at</th>
+          <th>Modified at</th>
+          <th>State</th>
+          <th>Assignee</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of tasksList" class="app-tasks-table-row" (click)="toggleOne(task)">
+          <td>
+            <input type="checkbox" [(ngModel)]="task.checked">
+          </td>
+          <td>{{ task.name }}</td>
+          <td>{{ task.description }}</td>
+          <td>{{ task.createdAt | date : 'medium' }}</td>
+          <td>{{ task.modifiedAt ? (task.modifiedAt | date : 'medium') : 'Not yet modified' }}</td>
+          <td>{{ task.state }}</td>
+          <td>Ymrlk</td>
+          <td>
+
+            <button class="app-button-rounded">
+              <i class="pi pi-pencil"></i>
+            </button>
+
+            <button class="app-button-rounded" (click)="deleteOne($event, task)">
+              <i class="pi pi-trash"></i>
+            </button>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #emptyTasksList>
+    <div class="app-tasks-empty-container">
+      <h4>No available tasks</h4>
+      <button class="app-button-primary" (click)="addNew()">
+        <i class="pi pi-plus-circle"></i>
+        Add new task
+      </button>
+    </div>
+  </ng-template>
+
+</section>

@@ -1,0 +1,47 @@
+@import "../../variables";
+
+@mixin app-button() {
+
+  .app-button-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px;
+    height: 35px;
+    background-color: $main-button-color;
+    color: $main-text-color;
+    border: none;
+    border-radius: $border-radius;
+    font-size: 14px;
+    transition: $common-transition;
+    cursor: pointer;
+
+    &:hover {
+      opacity: $common-opacity;
+    }
+
+    i.pi {
+      margin-right: 10px;
+      font-size: 12px;
+    }
+
+    &:disabled {
+      opacity: $common-opacity;
+      cursor: default;
+    }
+  }
+
+  .app-button-rounded {
+    @extend .app-button-primary;
+
+    min-width: auto;
+    height: 35px;
+    width: 35px;
+    border-radius: 100%;
+
+    i.pi {
+      margin: 0;
+    }
+  }
+
+}
