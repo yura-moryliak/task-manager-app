@@ -2,9 +2,9 @@ import {Component, inject, OnInit, ViewContainerRef, ViewEncapsulation} from '@a
 import {CommonModule} from '@angular/common';
 import {RouterOutlet} from '@angular/router';
 
-import {SidebarComponent} from "./commons/components/sidebar/sidebar.component";
-import {NavBarComponent} from "./commons/components/nav-bar/nav-bar.component";
-import {DynamicSidebarService} from "./commons/services/dynamic-sidebar.service";
+import {SidebarComponent} from './commons/components/sidebar/sidebar.component';
+import {NavBarComponent} from './commons/components/nav-bar/nav-bar.component';
+import {DynamicSidebarService} from './commons/services/dynamic-sidebar.service';
 
 @Component({
   selector: 'app-root',

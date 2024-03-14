@@ -1,7 +1,7 @@
 import {Component, inject, Input, Type, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
-import {DynamicSidebarService} from "../../services/dynamic-sidebar.service";
+import {DynamicSidebarService} from '../../services/dynamic-sidebar.service';
 
 @Component({
   selector: 'app-dynamic-sidebar',

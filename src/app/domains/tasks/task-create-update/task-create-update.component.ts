@@ -1,13 +1,13 @@
 import {Component, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {CommonModule} from '@angular/common';
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 
-import {Subscription} from "rxjs";
+import {Subscription} from 'rxjs';
 
-import {TasksService} from "../../../commons/services/tasks.service";
-import {TaskInterface} from "../../../commons/interfaces/task.interface";
-import {DynamicSidebarService} from "../../../commons/services/dynamic-sidebar.service";
-import {TaskCreateUpdateFormInterface} from "../../../commons/interfaces/task-create-update-form-group.interface";
+import {TasksService} from '../../../commons/services/tasks.service';
+import {TaskInterface} from '../../../commons/interfaces/task.interface';
+import {DynamicSidebarService} from '../../../commons/services/dynamic-sidebar.service';
+import {TaskCreateUpdateFormInterface} from '../../../commons/interfaces/task-create-update-form-group.interface';
 
 @Component({
   selector: 'app-task-create-update',

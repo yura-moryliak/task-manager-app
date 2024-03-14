@@ -1,24 +1,16 @@
 import {inject, Injectable} from '@angular/core';
 
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, Observable} from 'rxjs';
 
-import {TaskInterface} from "../interfaces/task.interface";
-import {TaskStateEnum} from "../enums/task-state.enum";
-import {DataStorageService} from "./data-storage.service";
-
-export interface DataManageInterface<T> {
-  getList(): T[];
-  create(...args: any[]): void;
-  update(...args: any[]): void;
-  delete(...arg: any[]): void;
-  deleteAll(...args: any[]): void;
-  deleteSelected(...args: any[]): void;
-}
+import {TaskInterface} from '../interfaces/task.interface';
+import {TaskStateEnum} from '../enums/task-state.enum';
+import {DataStorageService} from './data-storage.service';
+import {DataCRUDInterface} from '../interfaces/data-crud.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TasksService implements DataManageInterface<TaskInterface>{
+export class TasksService implements DataCRUDInterface<TaskInterface>{
 
   get tasksList$(): Observable<TaskInterface[]> {
     return this.tasksListBehaviorSubject.asObservable();
@@ -76,7 +68,7 @@ export class TasksService implements DataManageInterface<TaskInterface>{
   }
 
   delete(taskId: number): void {
-    this.tasksList = this.tasksList.filter((task) => task.id !== taskId);
+    this.tasksList = this.tasksList.filter((task: TaskInterface) => task.id !== taskId);
     this.tasksListBehaviorSubject.next(this.tasksList);
   }
 
@@ -89,5 +81,4 @@ export class TasksService implements DataManageInterface<TaskInterface>{
     this.tasksList = this.tasksList.filter((task: TaskInterface) => !tasksList.includes(task));
     this.tasksListBehaviorSubject.next(this.tasksList);
   }
-
 }

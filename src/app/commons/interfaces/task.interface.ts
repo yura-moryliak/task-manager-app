@@ -1,5 +1,5 @@
-import {TaskStateEnum} from "../enums/task-state.enum";
-import {UserInterface} from "./user.interface";
+import {TaskStateEnum} from '../enums/task-state.enum';
+import {UserInterface} from './user.interface';
 
 export interface TaskInterface {
   id: number;

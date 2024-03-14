@@ -9,6 +9,4 @@ import {CommonModule} from '@angular/common';
   styleUrls: ['./nav-bar.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class NavBarComponent {
-
-}
+export class NavBarComponent { }

@@ -1,6 +1,6 @@
 import {ComponentRef, Injectable, Type, ViewContainerRef} from '@angular/core';
 
-import {DynamicSidebarComponent} from "../components/dynamic-sidebar/dynamic-sidebar.component";
+import {DynamicSidebarComponent} from '../components/dynamic-sidebar/dynamic-sidebar.component';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +37,6 @@ export class DynamicSidebarService {
     }
 
     this.vcr.clear();
-    this.dynamicSidebarComponentRef?.destroy();
     this.dynamicSidebarComponentRef = undefined;
   }
 }

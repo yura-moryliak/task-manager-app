@@ -3,14 +3,14 @@ import {
   OnInit, ViewChild, ViewEncapsulation
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormsModule} from "@angular/forms";
+import {FormsModule} from '@angular/forms';
 
-import {Subscription} from "rxjs";
+import {Subscription} from 'rxjs';
 
-import {TaskInterface} from "../../commons/interfaces/task.interface";
-import {TasksService} from "../../commons/services/tasks.service";
-import {DynamicSidebarService} from "../../commons/services/dynamic-sidebar.service";
-import {TaskCreateUpdateComponent} from "./task-create-update/task-create-update.component";
+import {TaskInterface} from '../../commons/interfaces/task.interface';
+import {TasksService} from '../../commons/services/tasks.service';
+import {DynamicSidebarService} from '../../commons/services/dynamic-sidebar.service';
+import {TaskCreateUpdateComponent} from './task-create-update/task-create-update.component';
 
 @Component({
   selector: 'app-tasks',

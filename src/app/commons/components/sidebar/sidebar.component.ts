@@ -1,6 +1,6 @@
 import {Component, ViewEncapsulation} from '@angular/core';
+import {RouterLink, RouterLinkActive} from '@angular/router';
 import {CommonModule} from '@angular/common';
-import {RouterLink, RouterLinkActive} from "@angular/router";
 
 @Component({
   selector: 'app-sidebar',
@@ -10,6 +10,4 @@ import {RouterLink, RouterLinkActive} from "@angular/router";
   styleUrls: ['./sidebar.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class SidebarComponent {
-
-}
+export class SidebarComponent { }
