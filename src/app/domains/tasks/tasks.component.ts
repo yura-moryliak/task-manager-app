@@ -1,7 +1,4 @@
-import {
-  Component, ElementRef, inject, OnDestroy,
-  OnInit, ViewChild, ViewEncapsulation
-} from '@angular/core';
+import {Component, ElementRef, inject, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 
@@ -9,13 +6,15 @@ import {Subscription} from 'rxjs';
 
 import {TaskInterface} from '../../commons/interfaces/task.interface';
 import {TasksService} from '../../commons/services/tasks.service';
+import {TaskStatePipe} from "../../commons/pipes/task-state.pipe";
+import {TaskStateEnum} from "../../commons/enums/task-state.enum";
 import {DynamicSidebarService} from '../../commons/services/dynamic-sidebar.service';
 import {TaskCreateUpdateComponent} from './task-create-update/task-create-update.component';
 
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TaskStatePipe],
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.scss'],
   encapsulation: ViewEncapsulation.None
@@ -32,6 +31,8 @@ export class TasksComponent implements OnInit, OnDestroy {
   tasksList: TaskInterface[] = [];
   areAllTasksChecked: boolean | null = null;
   areSomeTasksCheckedToDelete: boolean = false;
+
+  TaskStateEnum = TaskStateEnum;
 
   ngOnInit(): void {
     this.initTasksList();
@@ -74,6 +75,7 @@ export class TasksComponent implements OnInit, OnDestroy {
     }
   }
 
+  // TODO Move into own component as app-table-row
   addNew(): void {
     this.tasksService.transferTaskToUpdate(null);
     this.dynamicSidebarService.open<TaskCreateUpdateComponent>(TaskCreateUpdateComponent);
@@ -86,6 +88,8 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
 
   deleteOne(event: Event, task: TaskInterface): void {
+    // TODO Check for task in progress and if added assignee
+    // TODO If yes => show dialog with error
     event.stopPropagation();
     this.tasksService.delete(task.id);
   }
@@ -94,6 +98,7 @@ export class TasksComponent implements OnInit, OnDestroy {
     if (this.areSomeTasksCheckedToDelete) {
       const tasksCheckedToDelete: TaskInterface[] = this.tasksList.filter((task: TaskInterface) => task.checked);
       this.tasksService.deleteSelected(tasksCheckedToDelete);
+      this.areAllTasksChecked = false;
       this.areSomeTasksCheckedToDelete = false;
       return;
     }

@@ -120,4 +120,22 @@
     }
   }
 
+  .app-task-state-bagge {
+    border-radius: $border-radius;
+    padding: 5px;
+    font-size: 12px;
+
+    &.in-queue {
+      background-color: $in-queue-color;
+    }
+
+    &.in-progress {
+      background-color: $in-progress-color;
+    }
+
+    &.done {
+      background-color: $done-color;
+    }
+  }
+
 }
