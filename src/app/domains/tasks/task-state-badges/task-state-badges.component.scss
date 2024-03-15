@@ -3,7 +3,7 @@
 
 .app-task-state-badges-container {
   display: flex;
-  margin: 10px 0;
+  margin: 20px 0;
 
   @include task-state-badge-mixin;
 }
