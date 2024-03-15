@@ -1,7 +1,7 @@
 <div class="app-task-state-badges-container">
 
   <div class="app-task-state-badge"
-       *ngFor="let badge of tasksStateBadgesList; let index = index"
+       *ngFor="let badge of tasksStateBadgesList; let index = index; trackBy: trackByIndex"
        (click)="selectBadge(index)"
        [ngClass]="{
         'selected': badge.selected,

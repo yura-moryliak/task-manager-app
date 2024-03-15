@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TaskStateLabelsComponent } from './task-state-labels.component';
+import { TaskStateLabelsComponent } from './task-state-badges.component';
 
 describe('TaskStateLabelsComponent', () => {
   let component: TaskStateLabelsComponent;

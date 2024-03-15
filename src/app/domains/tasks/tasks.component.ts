@@ -32,6 +32,10 @@ export class TasksComponent implements OnInit, OnDestroy {
   areAllTasksChecked: boolean | null = null;
   areSomeTasksCheckedToDelete: boolean = false;
 
+  trackByTaskId = (index: number, task: TaskInterface) => {
+    return task.id;
+  }
+
   ngOnInit(): void {
     this.initTasksList();
   }

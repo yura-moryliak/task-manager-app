@@ -14,7 +14,7 @@
   </header>
 
   <div class="app-domain-content" *ngIf="usersList.length > 0; else emptyUsersList">
-    <app-user *ngFor="let user of usersList" [user]="user"></app-user>
+    <app-user *ngFor="let user of usersList; trackBy: trackByUserId" [user]="user"></app-user>
   </div>
 
   <ng-template #emptyUsersList>

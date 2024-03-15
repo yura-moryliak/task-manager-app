@@ -37,6 +37,10 @@ export class TaskStateBadgesComponent implements OnInit {
   ];
   TaskStateEnum = TaskStateEnum;
 
+  trackByIndex = (index: number) => {
+    return index;
+  }
+
   ngOnInit(): void {
     this.tasksStateBadgesList.map((badge: TaskStateBadgeInterface): TaskStateBadgeInterface => {
 

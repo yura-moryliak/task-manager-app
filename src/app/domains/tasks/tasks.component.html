@@ -37,7 +37,7 @@
       </thead>
       <tbody>
         <app-task-table-row
-          *ngFor="let task of tasksList"
+          *ngFor="let task of tasksList; trackBy: trackByTaskId"
           [task]="task"
           (toggledTask)="toggleOne($event)">
         </app-task-table-row>

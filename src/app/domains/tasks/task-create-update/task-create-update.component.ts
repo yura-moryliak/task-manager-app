@@ -8,7 +8,7 @@ import {TasksService} from '../../../commons/services/tasks.service';
 import {TaskStateEnum} from '../../../commons/enums/task-state.enum';
 import {TaskInterface} from '../../../commons/interfaces/task.interface';
 import {DynamicSidebarService} from '../../../commons/services/dynamic-sidebar.service';
-import {TaskStateBadgesComponent} from '../task-state-badges/task-state-labels.component';
+import {TaskStateBadgesComponent} from '../task-state-badges/task-state-badges.component';
 import {TaskStateBadgeInterface} from '../../../commons/interfaces/task-state-badge.interface';
 import {TaskCreateUpdateFormInterface} from '../../../commons/interfaces/task-create-update-form-group.interface';
 

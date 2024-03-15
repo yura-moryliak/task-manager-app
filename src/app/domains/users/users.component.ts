@@ -26,6 +26,10 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   usersList: UserInterface[] = [];
 
+  trackByUserId = (index: number, userItem: UserInterface) => {
+    return userItem.id;
+  }
+
   ngOnInit(): void {
     this.initUsersList();
   }
