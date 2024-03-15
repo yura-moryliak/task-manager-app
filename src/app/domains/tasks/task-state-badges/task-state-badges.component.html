@@ -1,0 +1,15 @@
+<div class="app-task-state-badges-container">
+
+  <div class="app-task-state-badge"
+       *ngFor="let badge of tasksStateBadgesList; let index = index"
+       (click)="selectBadge(index)"
+       [ngClass]="{
+        'selected': badge.selected,
+        'in-queue': (badge.state | taskState : true) === TaskStateEnum.InQueue,
+        'in-progress': (badge.state | taskState : true) === TaskStateEnum.InProgress,
+        'done': (badge.state | taskState : true) === TaskStateEnum.Done,
+       }">
+    <span class="">{{ badge.name }}</span>
+  </div>
+
+</div>

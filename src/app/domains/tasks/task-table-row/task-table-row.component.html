@@ -9,13 +9,13 @@
     <td>{{ task.createdAt | date : 'EEE, MMM d, y, HH:mm:ss' }}</td>
     <td>{{ task.modifiedAt ? (task.modifiedAt | date : 'EEE, MMM d, y, HH:mm:ss') : '----' }}</td>
     <td>
-            <span class="app-task-state-bagge" [ngClass]="{
-              'in-queue': (task.state | taskState : true) === TaskStateEnum.InQueue,
-              'in-progress': (task.state | taskState : true) === TaskStateEnum.InProgress,
-              'done': (task.state | taskState : true) === TaskStateEnum.Done,
-            }">
-              {{ task.state | taskState }}
-            </span>
+
+      <span class="app-task-state-badge" [ngClass]="{
+        'in-queue': (task.state | taskState : true) === TaskStateEnum.InQueue,
+        'in-progress': (task.state | taskState : true) === TaskStateEnum.InProgress,
+        'done': (task.state | taskState : true) === TaskStateEnum.Done,
+      }">{{ task.state | taskState }}</span>
+
     </td>
     <td>{{ task.assignee ? task.assignee.firstName + ' ' + task.assignee.lastName : '----' }}</td>
     <td>

@@ -1,0 +1,9 @@
+@import "../../../../variables";
+@import "../../../../assets/mixins/task-state-badge.mixin";
+
+.app-task-state-badges-container {
+  display: flex;
+  margin: 10px 0;
+
+  @include task-state-badge-mixin;
+}

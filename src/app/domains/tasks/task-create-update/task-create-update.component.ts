@@ -5,14 +5,17 @@ import {CommonModule} from '@angular/common';
 import {Subscription} from 'rxjs';
 
 import {TasksService} from '../../../commons/services/tasks.service';
+import {TaskStateEnum} from '../../../commons/enums/task-state.enum';
 import {TaskInterface} from '../../../commons/interfaces/task.interface';
 import {DynamicSidebarService} from '../../../commons/services/dynamic-sidebar.service';
+import {TaskStateBadgesComponent} from '../task-state-badges/task-state-labels.component';
+import {TaskStateBadgeInterface} from '../../../commons/interfaces/task-state-badge.interface';
 import {TaskCreateUpdateFormInterface} from '../../../commons/interfaces/task-create-update-form-group.interface';
 
 @Component({
   selector: 'app-task-create-update',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, TaskStateBadgesComponent],
   templateUrl: './task-create-update.component.html',
   styleUrls: ['./task-create-update.component.scss'],
   encapsulation: ViewEncapsulation.None
@@ -23,13 +26,14 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
   private dynamicSidebarService: DynamicSidebarService = inject(DynamicSidebarService);
   private subscriptions: Subscription = new Subscription();
 
-  private taskToUpdate: TaskInterface | undefined;
+  private taskStateBadge: TaskStateBadgeInterface | undefined;
 
   form: FormGroup<TaskCreateUpdateFormInterface> = new FormGroup<TaskCreateUpdateFormInterface>({
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', Validators.required)
   });
   isUpdateMode: boolean = false;
+  taskToUpdate: TaskInterface | undefined;
 
   ngOnInit(): void {
     this.initUpdateTask();
@@ -40,6 +44,10 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
     this.dynamicSidebarService.close();
   }
 
+  selectedTaskState(taskState: TaskStateBadgeInterface): void {
+    this.taskStateBadge = taskState;
+  }
+
   updateTask(): void {
     if (!this.taskToUpdate) {
       return;
@@ -48,7 +56,17 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
     this.taskToUpdate.name = this.form.value.name as string;
     this.taskToUpdate.description = this.form.value.description as string;
     this.taskToUpdate.modifiedAt = new Date();
+
     this.dynamicSidebarService.close();
+
+    if (this.taskStateBadge && !this.taskStateBadge?.selected) {
+      this.taskToUpdate.state = TaskStateEnum.InQueue;
+      return;
+    }
+
+    if (this.taskStateBadge) {
+      this.taskToUpdate.state = this.taskStateBadge.state;
+    }
   }
 
   ngOnDestroy(): void {

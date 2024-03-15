@@ -2,6 +2,12 @@
 
   <h4>{{ isUpdateMode ? 'Update' : 'Create' }} task</h4>
 
+  <app-task-state-badges
+    *ngIf="isUpdateMode && taskToUpdate"
+    [initialBadgeState]="taskToUpdate.state"
+    (selectedBadge)="selectedTaskState($event)">
+  </app-task-state-badges>
+
   <div class="app-form-group-input">
     <label for="name">Name</label>
     <input id="name" type="text" placeholder="Provide task name" formControlName="name" />

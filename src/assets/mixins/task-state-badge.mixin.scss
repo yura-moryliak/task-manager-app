@@ -1,0 +1,42 @@
+@import "../../variables";
+
+@mixin task-state-badge-mixin() {
+
+  .app-task-state-badge {
+    display: block;
+    width: 65px;
+    text-align: center;
+    border-radius: $border-radius;
+    padding: 5px;
+    font-size: 12px;
+    margin-right: 10px;
+    color: $secondary-text-color;
+    transition: $common-transition;
+    cursor: pointer;
+
+    &:last-of-type {
+      margin-left: 0;
+    }
+
+    &.in-queue {
+      background-color: $in-queue-color;
+    }
+
+    &.in-progress {
+      background-color: $in-progress-color;
+    }
+
+    &.done {
+      background-color: $done-color;
+    }
+
+    &:hover {
+      opacity: $common-opacity;
+    }
+
+    &.selected {
+      outline: 1px solid $secondary-text-color;
+    }
+  }
+
+}

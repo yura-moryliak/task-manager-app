@@ -8,6 +8,8 @@ import {TaskStateEnum} from '../enums/task-state.enum';
 })
 export class TaskStatePipe implements PipeTransform {
 
+   // TODO Make it more smoother
+
   private taskStates = {
     [TaskStateEnum.InQueue]: 'In queue',
     [TaskStateEnum.InProgress]: 'In progress',
