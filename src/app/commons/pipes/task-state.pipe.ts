@@ -8,6 +8,7 @@ import {TaskStateEnum} from '../enums/task-state.enum';
 })
 export class TaskStatePipe implements PipeTransform {
 
+  // TODO Try to provide OCP here
   private taskStatesMap = {
     [TaskStateEnum.InQueue]: 'In queue',
     [TaskStateEnum.InProgress]: 'In progress',
