@@ -4,12 +4,12 @@ import {FormsModule} from '@angular/forms';
 
 import {Subscription} from 'rxjs';
 
-import {TaskInterface} from '../../commons/interfaces/task.interface';
-import {TasksService} from '../../commons/services/tasks.service';
 import {TaskStatePipe} from '../../commons/pipes/task-state.pipe';
+import {TasksService} from '../../commons/services/tasks.service';
+import {TaskInterface} from '../../commons/interfaces/task.interface';
+import {TaskTableRowComponent} from './task-table-row/task-table-row.component';
 import {DynamicSidebarService} from '../../commons/services/dynamic-sidebar.service';
 import {TaskCreateUpdateComponent} from './task-create-update/task-create-update.component';
-import {TaskTableRowComponent} from "./task-table-row/task-table-row.component";
 
 @Component({
   selector: 'app-tasks',
@@ -43,7 +43,7 @@ export class TasksComponent implements OnInit, OnDestroy {
   toggleAll(): void {
     this.areAllTasksChecked = !this.areAllTasksChecked;
 
-    this.tasksList.map((task: TaskInterface) => {
+    this.tasksList.map((task: TaskInterface): TaskInterface => {
       task.checked = this.areAllTasksChecked as boolean;
       return task;
     });
@@ -59,7 +59,7 @@ export class TasksComponent implements OnInit, OnDestroy {
     if (areSomeTasksUnChecked) {
       this.areAllTasksChecked = null;
       setTimeout(
-          () => this.toggleAllTasksElRef!.nativeElement.checked = false,
+          (): boolean => this.toggleAllTasksElRef!.nativeElement.checked = false,
           100
       );
     }
@@ -67,7 +67,7 @@ export class TasksComponent implements OnInit, OnDestroy {
     if (areAllChecked && !this.areAllTasksChecked) {
       this.areAllTasksChecked = true;
       setTimeout(
-          () => this.toggleAllTasksElRef!.nativeElement.checked = true,
+          (): boolean => this.toggleAllTasksElRef!.nativeElement.checked = true,
           100
       );
     }
@@ -101,7 +101,7 @@ export class TasksComponent implements OnInit, OnDestroy {
 
   private initTasksList(): void {
     const tasksDataSubscription: Subscription = this.tasksService.tasksList$.subscribe(
-        (tasksList: TaskInterface[]) => {
+        (tasksList: TaskInterface[]): void => {
           this.tasksList = tasksList;
 
           if (this.areAllTasksChecked) {
@@ -112,7 +112,7 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
 
   private updateTasksChecked(): void {
-    this.tasksList.map((task: TaskInterface) => {
+    this.tasksList.map((task: TaskInterface): TaskInterface => {
       task.checked = true;
       return task;
     });

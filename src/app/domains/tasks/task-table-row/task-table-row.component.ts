@@ -4,10 +4,10 @@ import {FormsModule} from '@angular/forms';
 
 import {TaskStateEnum} from '../../../commons/enums/task-state.enum';
 import {TaskStatePipe} from '../../../commons/pipes/task-state.pipe';
-import {TaskInterface} from '../../../commons/interfaces/task.interface';
 import {TasksService} from '../../../commons/services/tasks.service';
-import {TaskCreateUpdateComponent} from '../task-create-update/task-create-update.component';
+import {TaskInterface} from '../../../commons/interfaces/task.interface';
 import {DynamicSidebarService} from '../../../commons/services/dynamic-sidebar.service';
+import {TaskCreateUpdateComponent} from '../task-create-update/task-create-update.component';
 
 @Component({
   selector: 'app-task-table-row',

@@ -8,9 +8,7 @@ import {TaskStateEnum} from '../enums/task-state.enum';
 })
 export class TaskStatePipe implements PipeTransform {
 
-   // TODO Make it more smoother
-
-  private taskStates = {
+  private taskStatesMap = {
     [TaskStateEnum.InQueue]: 'In queue',
     [TaskStateEnum.InProgress]: 'In progress',
     [TaskStateEnum.Done]: 'Done'
@@ -18,7 +16,7 @@ export class TaskStatePipe implements PipeTransform {
 
   transform(taskState: TaskStateEnum, getValue: boolean = false): string | number {
     if (!getValue) {
-      return this.taskStates[taskState];
+      return this.taskStatesMap[taskState];
     }
 
     return taskState;

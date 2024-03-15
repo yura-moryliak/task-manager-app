@@ -41,8 +41,10 @@ export class TasksService {
   ];
 
   private dataStorageService: DataStorageService = inject(DataStorageService);
-  private tasksListBehaviorSubject: BehaviorSubject<TaskInterface[]> = new BehaviorSubject<TaskInterface[]>(this.tasksList);
-  protected taskTransferBehaviorSubject: BehaviorSubject<TaskInterface | undefined> = new BehaviorSubject<TaskInterface | undefined>(undefined);
+  private tasksListBehaviorSubject: BehaviorSubject<TaskInterface[]> =
+    new BehaviorSubject<TaskInterface[]>(this.tasksList);
+  private taskTransferBehaviorSubject: BehaviorSubject<TaskInterface | undefined> =
+    new BehaviorSubject<TaskInterface | undefined>(undefined);
 
   create(createModel: Partial<TaskInterface>): void {
     createModel.id = Date.now();
@@ -59,7 +61,7 @@ export class TasksService {
   }
 
   delete(taskId: number): void {
-    this.tasksList = this.tasksList.filter((task: TaskInterface) => task.id !== taskId);
+    this.tasksList = this.tasksList.filter((task: TaskInterface): boolean => task.id !== taskId);
     this.tasksListBehaviorSubject.next(this.tasksList);
   }
 

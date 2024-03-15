@@ -53,8 +53,8 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.taskToUpdate.name = this.form.value.name as string;
-    this.taskToUpdate.description = this.form.value.description as string;
+    this.taskToUpdate.name = <string>this.form.value.name;
+    this.taskToUpdate.description = <string>this.form.value.description;
     this.taskToUpdate.modifiedAt = new Date();
 
     this.dynamicSidebarService.close();
@@ -74,7 +74,7 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
   }
 
   private initUpdateTask(): void {
-    const updateTaskDataSubscription: Subscription = this.tasksService.taskToUpdate$.subscribe((task: TaskInterface | undefined) => {
+    const updateTaskDataSubscription: Subscription = this.tasksService.taskToUpdate$.subscribe((task: TaskInterface | undefined): void => {
       if (task) {
         this.isUpdateMode = true;
         this.taskToUpdate = task;
