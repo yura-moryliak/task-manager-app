@@ -6,15 +6,15 @@ import {Subscription} from 'rxjs';
 
 import {TaskInterface} from '../../commons/interfaces/task.interface';
 import {TasksService} from '../../commons/services/tasks.service';
-import {TaskStatePipe} from "../../commons/pipes/task-state.pipe";
-import {TaskStateEnum} from "../../commons/enums/task-state.enum";
+import {TaskStatePipe} from '../../commons/pipes/task-state.pipe';
 import {DynamicSidebarService} from '../../commons/services/dynamic-sidebar.service';
 import {TaskCreateUpdateComponent} from './task-create-update/task-create-update.component';
+import {TaskTableRowComponent} from "./task-table-row/task-table-row.component";
 
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [CommonModule, FormsModule, TaskStatePipe],
+  imports: [CommonModule, FormsModule, TaskStatePipe, TaskTableRowComponent],
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.scss'],
   encapsulation: ViewEncapsulation.None
@@ -31,8 +31,6 @@ export class TasksComponent implements OnInit, OnDestroy {
   tasksList: TaskInterface[] = [];
   areAllTasksChecked: boolean | null = null;
   areSomeTasksCheckedToDelete: boolean = false;
-
-  TaskStateEnum = TaskStateEnum;
 
   ngOnInit(): void {
     this.initTasksList();
@@ -75,23 +73,9 @@ export class TasksComponent implements OnInit, OnDestroy {
     }
   }
 
-  // TODO Move into own component as app-table-row
   addNew(): void {
     this.tasksService.transferTaskToUpdate();
     this.dynamicSidebarService.open<TaskCreateUpdateComponent>(TaskCreateUpdateComponent);
-  }
-
-  updateOne(event: Event, task: TaskInterface): void {
-    event.stopPropagation();
-    this.tasksService.transferTaskToUpdate(task);
-    this.dynamicSidebarService.open<TaskCreateUpdateComponent>(TaskCreateUpdateComponent);
-  }
-
-  deleteOne(event: Event, task: TaskInterface): void {
-    // TODO Check for task in progress and if added assignee
-    // TODO If yes => show dialog with error
-    event.stopPropagation();
-    this.tasksService.delete(task.id);
   }
 
   deleteTasks(): void {

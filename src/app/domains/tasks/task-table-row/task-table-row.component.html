@@ -1,0 +1,34 @@
+<ng-container *ngIf="task">
+
+  <tr class="app-tasks-table-row" (click)="toggleOne(task)">
+    <td>
+      <input type="checkbox" [(ngModel)]="task.checked">
+    </td>
+    <td>{{ task.name }}</td>
+    <td>{{ task.description }}</td>
+    <td>{{ task.createdAt | date : 'EEE, MMM d, y, HH:mm:ss' }}</td>
+    <td>{{ task.modifiedAt ? (task.modifiedAt | date : 'EEE, MMM d, y, HH:mm:ss') : '----' }}</td>
+    <td>
+            <span class="app-task-state-bagge" [ngClass]="{
+              'in-queue': (task.state | taskState : true) === TaskStateEnum.InQueue,
+              'in-progress': (task.state | taskState : true) === TaskStateEnum.InProgress,
+              'done': (task.state | taskState : true) === TaskStateEnum.Done,
+            }">
+              {{ task.state | taskState }}
+            </span>
+    </td>
+    <td>{{ task.assignee ? task.assignee.firstName + ' ' + task.assignee.lastName : '----' }}</td>
+    <td>
+
+      <button class="app-button-rounded" (click)="updateOne($event, task)">
+        <i class="pi pi-pencil"></i>
+      </button>
+
+      <button class="app-button-rounded" (click)="deleteOne($event, task)">
+        <i class="pi pi-trash"></i>
+      </button>
+
+    </td>
+  </tr>
+
+</ng-container>
