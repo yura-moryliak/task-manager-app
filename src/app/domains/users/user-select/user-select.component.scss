@@ -1,0 +1,82 @@
+@import "../../../../variables";
+
+.app-users-select-container {
+  display: flex;
+  flex-direction: column;
+  background-color: $element-background-color;
+  border-radius: $border-radius;
+  height: 40px;
+  margin: 10px 0;
+  cursor: pointer;
+  position: relative;
+  width: 100%;
+
+  .app-users-select-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: inherit;
+    padding: 0 10px;
+    font-size: 12px;
+
+    i.pi {
+      transition: $common-transition;
+    }
+
+  }
+
+  .app-users-select-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 45px;
+    background-color: $element-background-color;
+    border-radius: $border-radius;
+    padding: 10px 0;
+    z-index: 1;
+    max-height: 250px;
+    min-height: 40px;
+    overflow: auto;
+
+    .app-user-select-card {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 0 10px;
+      margin-bottom: 15px;
+      transition: $common-transition;
+      font-size: 12px;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+
+      &:hover {
+        opacity: $common-opacity;
+        color: $secondary-text-color;
+      }
+
+      &.selected {
+
+        img {
+          outline: 3px solid $main-button-color;
+        }
+
+        span {
+          font-weight: bold;
+          color: $main-button-color;
+        }
+
+      }
+
+      img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 100%;
+        margin-right: 10px;
+      }
+    }
+  }
+}

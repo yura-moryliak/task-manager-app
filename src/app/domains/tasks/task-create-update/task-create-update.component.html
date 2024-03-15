@@ -28,6 +28,12 @@
     </div>
   </div>
 
+  <app-user-select
+    *ngIf="isUpdateMode"
+    [user]="taskToUpdate && taskToUpdate.assignee"
+    (onSelectedUser)="selectedUser($event)">
+  </app-user-select>
+
   <button class="app-button-primary" *ngIf="!isUpdateMode" [disabled]="form.invalid" (click)="createTask()">
     <span>Create task</span>
   </button>

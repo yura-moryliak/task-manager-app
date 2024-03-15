@@ -49,6 +49,7 @@
         user-select: none;
         border-collapse: separate;
         border-spacing: 0 10px;
+        font-size: 14px;
 
         thead {
 
@@ -86,6 +87,20 @@
 
             td {
               padding-left: 10px;
+              vertical-align: middle;
+
+              .app-task-assignee {
+                display: flex;
+                align-items: center;
+
+                img {
+                  width: 40px;
+                  height: 40px;
+                  object-fit: cover;
+                  border-radius: 100%;
+                  margin-right: 10px;
+                }
+              }
 
               &:first-of-type {
 

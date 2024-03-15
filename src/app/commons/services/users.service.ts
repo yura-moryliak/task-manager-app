@@ -44,12 +44,24 @@ export class UsersService {
     this.usersListBehaviorSubject.next(this.usersList);
   }
 
-  transferUserToUpdate(updateModel: UserInterface | undefined = undefined): void {
-    this.userTransferBehaviorSubject.next(updateModel);
+  update(updateModel: UserInterface): void {
+    this.usersList.map((user: UserInterface): UserInterface => {
+      if (updateModel.id === user.id) {
+        user = { ...user, ...updateModel };
+        return user;
+      }
+
+      return user;
+    });
+    this.usersListBehaviorSubject.next(this.usersList);
   }
 
   delete(userId: number): void {
     this.usersList = this.usersList.filter((user: UserInterface) => user.id !== userId);
     this.usersListBehaviorSubject.next(this.usersList);
+  }
+
+  transferUserToUpdate(updateModel: UserInterface | undefined = undefined): void {
+    this.userTransferBehaviorSubject.next(updateModel);
   }
 }

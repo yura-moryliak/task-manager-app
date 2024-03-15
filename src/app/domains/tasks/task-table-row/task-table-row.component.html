@@ -17,7 +17,15 @@
       }">{{ task.state | taskState }}</span>
 
     </td>
-    <td>{{ task.assignee ? task.assignee.firstName + ' ' + task.assignee.lastName : '----' }}</td>
+    <td>
+
+      <div class="app-task-assignee" *ngIf="task.assignee; else noAssignee">
+        <img [src]="task.assignee.avatarBae64" alt="{{ task.assignee.firstName }} {{ task.assignee.lastName }}">
+        {{ task.assignee.firstName }} {{ task.assignee.lastName }}
+      </div>
+
+      <ng-template #noAssignee>No assignee</ng-template>
+    </td>
     <td>
 
       <button class="app-button-rounded" (click)="updateOne($event, task)">

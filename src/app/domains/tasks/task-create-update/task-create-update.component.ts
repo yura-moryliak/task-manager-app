@@ -11,11 +11,13 @@ import {DynamicSidebarService} from '../../../commons/services/dynamic-sidebar.s
 import {TaskStateBadgesComponent} from '../task-state-badges/task-state-badges.component';
 import {TaskStateBadgeInterface} from '../../../commons/interfaces/task-state-badge.interface';
 import {TaskCreateUpdateFormInterface} from '../../../commons/interfaces/task-create-update-form-group.interface';
+import {UserSelectComponent} from "../../users/user-select/user-select.component";
+import {UserInterface} from "../../../commons/interfaces/user.interface";
 
 @Component({
   selector: 'app-task-create-update',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TaskStateBadgesComponent],
+  imports: [CommonModule, ReactiveFormsModule, TaskStateBadgesComponent, UserSelectComponent],
   templateUrl: './task-create-update.component.html',
   styleUrls: ['./task-create-update.component.scss'],
   encapsulation: ViewEncapsulation.None
@@ -34,6 +36,7 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
   });
   isUpdateMode: boolean = false;
   taskToUpdate: TaskInterface | undefined;
+  assignee: UserInterface | undefined;
 
   ngOnInit(): void {
     this.initUpdateTask();
@@ -53,9 +56,12 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
       return;
     }
 
+    // TODO Check here for update task in subject when subscribwe to list
+
     this.taskToUpdate.name = <string>this.form.value.name;
     this.taskToUpdate.description = <string>this.form.value.description;
     this.taskToUpdate.modifiedAt = new Date();
+    this.taskToUpdate.assignee = this.assignee;
 
     this.dynamicSidebarService.close();
 
@@ -67,6 +73,10 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
     if (this.taskStateBadge) {
       this.taskToUpdate.state = this.taskStateBadge.state;
     }
+  }
+
+  selectedUser(user: UserInterface | undefined): void {
+    this.assignee = user;
   }
 
   ngOnDestroy(): void {

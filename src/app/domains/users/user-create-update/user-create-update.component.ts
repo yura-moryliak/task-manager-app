@@ -82,6 +82,7 @@ export class UserCreateUpdateComponent implements OnInit, OnDestroy {
     this.userToUpdate.firstName = this.form.value.firstName as string;
     this.userToUpdate.lastName = this.form.value.lastName as string;
     this.userToUpdate.avatarBae64 = this.form.value.avatarBae64 as string;
+    this.usersService.update(this.userToUpdate);
     this.dynamicSidebarService.close();
   }
 

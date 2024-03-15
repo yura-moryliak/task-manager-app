@@ -7,13 +7,14 @@ import {Subscription} from 'rxjs';
 import {UserComponent} from './user/user.component';
 import {UsersService} from '../../commons/services/users.service';
 import {UserInterface} from '../../commons/interfaces/user.interface';
+import {UserSelectComponent} from './user-select/user-select.component';
 import {DynamicSidebarService} from '../../commons/services/dynamic-sidebar.service';
 import {UserCreateUpdateComponent} from './user-create-update/user-create-update.component';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [CommonModule, FormsModule, UserComponent],
+  imports: [CommonModule, FormsModule, UserComponent, UserSelectComponent],
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
   encapsulation: ViewEncapsulation.None

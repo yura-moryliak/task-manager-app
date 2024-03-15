@@ -1,0 +1,31 @@
+<div class="app-users-select-container"
+     appClickOutside
+     (clickOutside)="clickedOutside()">
+
+  <div class="app-users-select-header" (click)="openList()">
+    <span>{{ selectedUser ? selectedUser.firstName + ' ' + selectedUser.lastName : 'Select user' }}</span>
+    <i class="pi" *ngIf="!selectedUser"
+       [ngClass]="{
+        'pi-chevron-circle-down': !isUsersListOpened,
+        'pi-chevron-circle-up': isUsersListOpened
+       }"></i>
+    <i class="pi pi-times-circle" *ngIf="selectedUser" (click)="clearSelection($event)"></i>
+  </div>
+
+  <div class="app-users-select-content" *ngIf="isUsersListOpened">
+
+    <ng-container *ngIf="userList$ | async as usersList">
+
+      <div class="app-user-select-card"
+           *ngFor="let user of usersList"
+           (click)="selectUser(user)"
+           [ngClass]="{ 'selected': selectedUser && selectedUser.id === user.id }">
+        <img [src]="user.avatarBae64" alt="{{ user.firstName }} {{ user.lastName }}">
+        <span>{{ user.firstName }} {{ user.lastName }}</span>
+      </div>
+
+    </ng-container>
+
+  </div>
+
+</div>
