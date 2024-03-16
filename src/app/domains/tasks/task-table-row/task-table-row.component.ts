@@ -48,8 +48,6 @@ export class TaskTableRowComponent implements OnDestroy {
   }
 
   deleteOne(event: Event, task: TaskInterface): void {
-    // TODO Check for task in progress and if added assignee
-    // TODO If yes => show dialog with error
     event.stopPropagation();
     this.tasksService.delete(task.id);
   }

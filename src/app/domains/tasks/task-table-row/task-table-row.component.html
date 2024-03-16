@@ -32,7 +32,9 @@
         <i class="pi pi-pencil"></i>
       </button>
 
-      <button class="app-button-rounded" (click)="deleteOne($event, task)">
+      <button class="app-button-rounded"
+              (click)="deleteOne($event, task)"
+              [disabled]="task.state === TaskStateEnum.InProgress && task.assignee">
         <i class="pi pi-trash"></i>
       </button>
 

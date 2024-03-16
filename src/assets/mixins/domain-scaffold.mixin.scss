@@ -83,6 +83,18 @@
 
             &:hover {
               opacity: $common-opacity;
+
+              td {
+
+                &:has(.app-button-rounded) {
+
+                  .app-button-rounded {
+                    background-color: $secondary-button-color;
+                  }
+
+                }
+
+              }
             }
 
             td {

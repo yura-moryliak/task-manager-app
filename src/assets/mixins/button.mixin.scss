@@ -26,7 +26,7 @@
     }
 
     &:disabled {
-      opacity: $common-opacity;
+      opacity: $common-disable-opacity;
       cursor: default;
     }
 

@@ -3,10 +3,10 @@ import {CommonModule} from '@angular/common';
 
 import {UsersService} from '../../../commons/services/users.service';
 import {TaskStatePipe} from '../../../commons/pipes/task-state.pipe';
+import {TaskStateEnum} from '../../../commons/enums/task-state.enum';
 import {UserInterface} from '../../../commons/interfaces/user.interface';
 import {DynamicSidebarService} from '../../../commons/services/dynamic-sidebar.service';
 import {UserCreateUpdateComponent} from '../user-create-update/user-create-update.component';
-import {TaskStateEnum} from "../../../commons/enums/task-state.enum";
 
 @Component({
   selector: 'app-user',
@@ -23,6 +23,8 @@ export class UserComponent {
 
   @Input({required: true}) user: UserInterface | undefined;
 
+  TaskStateEnum = TaskStateEnum;
+
   update(user: UserInterface): void {
     this.dynamicSidebarService.open({component: UserCreateUpdateComponent, componentData: user});
   }
@@ -34,6 +36,4 @@ export class UserComponent {
 
     this.usersService.delete(this.user.id);
   }
-
-  protected readonly TaskStateEnum = TaskStateEnum;
 }
