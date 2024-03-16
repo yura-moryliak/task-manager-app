@@ -6,8 +6,8 @@
     </td>
     <td>{{ task.name }}</td>
     <td>{{ task.description }}</td>
-    <td>{{ task.createdAt | date : 'EEE, MMM d, y, HH:mm:ss' }}</td>
-    <td>{{ task.modifiedAt ? (task.modifiedAt | date : 'EEE, MMM d, y, HH:mm:ss') : '----' }}</td>
+    <td>{{ task.createdAt | date : 'MMM d, y, HH:mm:ss' }}</td>
+    <td>{{ task.modifiedAt ? (task.modifiedAt | date : 'MMM d, y, HH:mm:ss') : '----' }}</td>
     <td>
 
       <span class="app-task-state-badge" [ngClass]="{

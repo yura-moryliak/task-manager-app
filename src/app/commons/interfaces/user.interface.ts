@@ -5,5 +5,5 @@ export interface UserInterface {
   firstName: string;
   lastName: string;
   avatarBae64: string;
-  task?: TaskInterface;
+  task?: TaskInterface | undefined;
 }

@@ -28,4 +28,12 @@
 
   </div>
 
+  <div class="app-user-card-content" *ngIf="user.task">
+
+    <div class="app-user-task">
+      <span>{{ user.task.name }} - {{ user.task.state | taskState }}</span>
+    </div>
+
+  </div>
+
 </div>

@@ -34,11 +34,14 @@
     (onSelectedUser)="selectedUser($event)">
   </app-user-select>
 
-  <button class="app-button-primary" *ngIf="!isUpdateMode" [disabled]="form.invalid" (click)="createTask()">
+  <button type="button"
+          class="app-button-primary"
+          *ngIf="!isUpdateMode" [disabled]="form.invalid" (click)="createTask()">
     <span>Create task</span>
   </button>
 
-  <button class="app-button-primary" *ngIf="isUpdateMode" [disabled]="form.invalid" (click)="updateTask()">
+  <button type="button"
+          class="app-button-primary" *ngIf="isUpdateMode" [disabled]="form.invalid" (click)="updateTask()">
     <span>Update task</span>
   </button>
 

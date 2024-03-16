@@ -9,5 +9,5 @@ export interface TaskInterface {
   createdAt: Date;
   modifiedAt: Date | null;
   state: TaskStateEnum;
-  assignee?: UserInterface;
+  assignee?: UserInterface | undefined;
 }

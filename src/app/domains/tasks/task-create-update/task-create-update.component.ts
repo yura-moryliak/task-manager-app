@@ -2,7 +2,7 @@ import {Component, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 
-import {Subscription} from 'rxjs';
+import {map, Subscription} from 'rxjs';
 
 import {TasksService} from '../../../commons/services/tasks.service';
 import {TaskStateEnum} from '../../../commons/enums/task-state.enum';
@@ -11,8 +11,8 @@ import {DynamicSidebarService} from '../../../commons/services/dynamic-sidebar.s
 import {TaskStateBadgesComponent} from '../task-state-badges/task-state-badges.component';
 import {TaskStateBadgeInterface} from '../../../commons/interfaces/task-state-badge.interface';
 import {TaskCreateUpdateFormInterface} from '../../../commons/interfaces/task-create-update-form-group.interface';
-import {UserSelectComponent} from "../../users/user-select/user-select.component";
-import {UserInterface} from "../../../commons/interfaces/user.interface";
+import {UserSelectComponent} from '../../users/user-select/user-select.component';
+import {UserInterface} from '../../../commons/interfaces/user.interface';
 
 @Component({
   selector: 'app-task-create-update',
@@ -56,23 +56,19 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // TODO Check here for update task in subject when subscribwe to list
-
     this.taskToUpdate.name = <string>this.form.value.name;
     this.taskToUpdate.description = <string>this.form.value.description;
     this.taskToUpdate.modifiedAt = new Date();
-    this.taskToUpdate.assignee = this.assignee;
 
-    this.dynamicSidebarService.close();
-
-    if (this.taskStateBadge && !this.taskStateBadge?.selected) {
+    if (this.taskStateBadge && !this.taskStateBadge.selected) {
       this.taskToUpdate.state = TaskStateEnum.InQueue;
-      return;
     }
 
     if (this.taskStateBadge) {
       this.taskToUpdate.state = this.taskStateBadge.state;
     }
+
+    this.dynamicSidebarService.close([this.taskToUpdate, this.assignee]);
   }
 
   selectedUser(user: UserInterface | undefined): void {
@@ -84,13 +80,15 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
   }
 
   private initUpdateTask(): void {
-    const updateTaskDataSubscription: Subscription = this.tasksService.taskToUpdate$.subscribe((task: TaskInterface | undefined): void => {
+    const dataSubscription: Subscription = this.dynamicSidebarService.data$
+      .pipe(map((data) => data as TaskInterface))
+      .subscribe((task: TaskInterface): void => {
       if (task) {
         this.isUpdateMode = true;
         this.taskToUpdate = task;
         this.form.setValue({ name: task.name, description: task.description });
       }
-    });
-    this.subscriptions.add(updateTaskDataSubscription);
+    })
+    this.subscriptions.add(dataSubscription);
   }
 }

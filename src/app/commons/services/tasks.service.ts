@@ -1,10 +1,9 @@
-import {inject, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 
 import {BehaviorSubject, Observable} from 'rxjs';
 
 import {TaskInterface} from '../interfaces/task.interface';
 import {TaskStateEnum} from '../enums/task-state.enum';
-import {DataStorageService} from './data-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +14,8 @@ export class TasksService {
     return this.tasksListBehaviorSubject.asObservable();
   }
 
-  get taskToUpdate$(): Observable<TaskInterface | undefined> {
-    return this.taskTransferBehaviorSubject.asObservable();
-  }
-
-  private tasksList: TaskInterface[] = [
+  // In memory store
+  tasksList: TaskInterface[] = [
     {
       id: 1,
       name: 'Task 1',
@@ -40,11 +36,8 @@ export class TasksService {
     }
   ];
 
-  private dataStorageService: DataStorageService = inject(DataStorageService);
   private tasksListBehaviorSubject: BehaviorSubject<TaskInterface[]> =
     new BehaviorSubject<TaskInterface[]>(this.tasksList);
-  private taskTransferBehaviorSubject: BehaviorSubject<TaskInterface | undefined> =
-    new BehaviorSubject<TaskInterface | undefined>(undefined);
 
   create(createModel: Partial<TaskInterface>): void {
     createModel.id = Date.now();
@@ -56,8 +49,16 @@ export class TasksService {
     this.tasksListBehaviorSubject.next(this.tasksList);
   }
 
-  transferTaskToUpdate(updateModel: TaskInterface | undefined = undefined): void {
-    this.taskTransferBehaviorSubject.next(updateModel);
+  update(updateModel: TaskInterface): void {
+    this.tasksList.map((task: TaskInterface): TaskInterface => {
+      if (updateModel.id === task.id) {
+        task = { ...task, ...updateModel };
+        return task;
+      }
+
+      return task;
+    });
+    this.tasksListBehaviorSubject.next(this.tasksList);
   }
 
   delete(taskId: number): void {

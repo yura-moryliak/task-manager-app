@@ -7,6 +7,8 @@
   padding: 10px 0;
   margin-bottom: 20px;
   border-radius: $border-radius;
+  animation-name: fadeIn;
+  animation-duration: $common-animation-duration;
 
   .app-user-card-container {
     display: flex;
@@ -43,5 +45,15 @@
 
   .app-user-card-content {
     padding: 0 10px;
+
+    .app-user-task {
+
+      span {
+        display: flex;
+        width: 100%;
+        border-top: 1px solid $border-color;
+        margin: 10px 0;
+      }
+    }
   }
 }

@@ -41,11 +41,15 @@
     </div>
   </div>
 
-  <button class="app-button-primary" *ngIf="!isUpdateMode" [disabled]="form.invalid" (click)="createUser()">
+  <button type="button"
+          class="app-button-primary"
+          *ngIf="!isUpdateMode" [disabled]="form.invalid" (click)="createUser()">
     <span>Create user</span>
   </button>
 
-  <button class="app-button-primary" *ngIf="isUpdateMode" [disabled]="form.invalid" (click)="updateUser()">
+  <button type="button"
+          class="app-button-primary"
+          *ngIf="isUpdateMode" [disabled]="form.invalid" (click)="updateUser()">
     <span>Update user</span>
   </button>
 

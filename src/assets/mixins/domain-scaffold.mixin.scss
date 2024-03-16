@@ -88,6 +88,9 @@
             td {
               padding-left: 10px;
               vertical-align: middle;
+              width: 14.3%;
+              animation-name: fadeIn;
+              animation-duration: $common-animation-duration;
 
               .app-task-assignee {
                 display: flex;
@@ -115,6 +118,7 @@
                 align-items: center;
                 justify-content: flex-end;
                 height: inherit;
+                width: inherit;
 
                 button {
                   margin: 0 10px;

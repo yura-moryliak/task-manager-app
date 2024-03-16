@@ -2,7 +2,7 @@ import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 
-import {Subscription} from 'rxjs';
+import {map, Subscription} from 'rxjs';
 
 import {UsersService} from '../../../commons/services/users.service';
 import {UserInterface} from '../../../commons/interfaces/user.interface';
@@ -91,16 +91,18 @@ export class UserCreateUpdateComponent implements OnInit, OnDestroy {
   }
 
   private initUpdateUser(): void {
-    const updateUserDataSubscription: Subscription = this.usersService.userToUpdate$.subscribe((user: UserInterface | undefined) => {
-      if (user) {
-        this.isUpdateMode = true;
-        this.userToUpdate = user;
+    const dataSubscription: Subscription = this.dynamicSidebarService.data$
+      .pipe(map((data) => data as UserInterface))
+      .subscribe((user: UserInterface): void => {
+        if (user) {
+          this.isUpdateMode = true;
+          this.userToUpdate = user;
 
-        this.form.controls.avatarBae64.setValue(user.avatarBae64);
-        this.form.controls.firstName.setValue(user.firstName);
-        this.form.controls.lastName.setValue(user.lastName);
-      }
-    });
-    this.subscriptions.add(updateUserDataSubscription);
+          this.form.controls.avatarBae64.setValue(user.avatarBae64);
+          this.form.controls.firstName.setValue(user.firstName);
+          this.form.controls.lastName.setValue(user.lastName);
+        }
+      });
+    this.subscriptions.add(dataSubscription);
   }
 }

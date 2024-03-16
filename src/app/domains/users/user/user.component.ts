@@ -2,6 +2,7 @@ import {Component, inject, Input, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {UsersService} from '../../../commons/services/users.service';
+import {TaskStatePipe} from '../../../commons/pipes/task-state.pipe';
 import {UserInterface} from '../../../commons/interfaces/user.interface';
 import {DynamicSidebarService} from '../../../commons/services/dynamic-sidebar.service';
 import {UserCreateUpdateComponent} from '../user-create-update/user-create-update.component';
@@ -9,7 +10,7 @@ import {UserCreateUpdateComponent} from '../user-create-update/user-create-updat
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TaskStatePipe],
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
   encapsulation: ViewEncapsulation.None
@@ -22,8 +23,7 @@ export class UserComponent {
   @Input({required: true}) user: UserInterface | undefined;
 
   update(user: UserInterface): void {
-    this.usersService.transferUserToUpdate(user);
-    this.dynamicSidebarService.open(UserCreateUpdateComponent);
+    this.dynamicSidebarService.open({component: UserCreateUpdateComponent, componentData: user});
   }
 
   delete(): void {

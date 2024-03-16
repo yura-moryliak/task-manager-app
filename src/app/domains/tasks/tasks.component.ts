@@ -78,8 +78,7 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
 
   addNew(): void {
-    this.tasksService.transferTaskToUpdate();
-    this.dynamicSidebarService.open<TaskCreateUpdateComponent>(TaskCreateUpdateComponent);
+    this.dynamicSidebarService.open({ component: TaskCreateUpdateComponent })
   }
 
   deleteTasks(): void {

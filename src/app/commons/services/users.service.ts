@@ -1,9 +1,8 @@
-import {inject, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 
 import {UserInterface} from '../interfaces/user.interface';
-import {DataStorageService} from './data-storage.service';
 import {fallbackAvatar} from '../fallback-avatar';
 
 @Injectable({
@@ -15,10 +14,7 @@ export class UsersService {
     return this.usersListBehaviorSubject.asObservable();
   }
 
-  get userToUpdate$(): Observable<UserInterface | undefined> {
-    return this.userTransferBehaviorSubject.asObservable();
-  }
-
+  // In memory store
   private usersList: UserInterface[] = [
     {
       id: 1,
@@ -34,9 +30,7 @@ export class UsersService {
     }
   ];
 
-  private dataStorageService: DataStorageService = inject(DataStorageService);
   private usersListBehaviorSubject: BehaviorSubject<UserInterface[]> = new BehaviorSubject(this.usersList);
-  protected userTransferBehaviorSubject: BehaviorSubject<UserInterface | undefined> = new BehaviorSubject<UserInterface | undefined>(undefined);
 
   create(createModel: Partial<UserInterface>): void {
     createModel.id = Date.now();
@@ -47,7 +41,7 @@ export class UsersService {
   update(updateModel: UserInterface): void {
     this.usersList.map((user: UserInterface): UserInterface => {
       if (updateModel.id === user.id) {
-        user = { ...user, ...updateModel };
+        user = { ...updateModel };
         return user;
       }
 
@@ -59,9 +53,5 @@ export class UsersService {
   delete(userId: number): void {
     this.usersList = this.usersList.filter((user: UserInterface) => user.id !== userId);
     this.usersListBehaviorSubject.next(this.usersList);
-  }
-
-  transferUserToUpdate(updateModel: UserInterface | undefined = undefined): void {
-    this.userTransferBehaviorSubject.next(updateModel);
   }
 }
