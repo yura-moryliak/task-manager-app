@@ -30,7 +30,7 @@
 
   </div>
 
-  <div class="app-user-card-content" *ngIf="user.task">
+  <div class="app-user-card-content" *ngIf="user.task; else noAssignments">
 
     <div class="app-user-task">
       <span>{{ user.task.name }}</span>
@@ -45,5 +45,11 @@
     </div>
 
   </div>
+
+  <ng-template #noAssignments>
+    <div class="app-user-card-content">
+      <div class="app-user-task no-assignments-container"><span>No task assigned yet</span></div>
+    </div>
+  </ng-template>
 
 </div>

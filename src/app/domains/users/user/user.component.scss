@@ -50,8 +50,13 @@
     .app-user-task {
       display: flex;
       align-items: center;
+      font-size: 14px;
 
       @include task-state-badge-mixin;
+
+      &.no-assignments-container {
+        color: $warn-color;
+      }
 
       span {
         margin: 10px 0;
