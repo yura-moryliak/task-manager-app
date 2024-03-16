@@ -2,7 +2,7 @@
 
   <div class="app-task-state-badge"
        *ngFor="let badge of tasksStateBadgesList; let index = index; trackBy: trackByIndex"
-       (click)="selectBadge(index)"
+       (click)="selectBadge(badge, index)"
        [ngClass]="{
         'selected': badge.selected,
         'in-queue': (badge.state | taskState : true) === TaskStateEnum.InQueue,

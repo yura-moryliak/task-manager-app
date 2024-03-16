@@ -8,9 +8,9 @@ import {TaskStateEnum} from '../../../commons/enums/task-state.enum';
 import {TaskStatePipe} from '../../../commons/pipes/task-state.pipe';
 import {TasksService} from '../../../commons/services/tasks.service';
 import {TaskInterface} from '../../../commons/interfaces/task.interface';
+import {UserInterface} from '../../../commons/interfaces/user.interface';
 import {DynamicSidebarService} from '../../../commons/services/dynamic-sidebar.service';
 import {TaskCreateUpdateComponent} from '../task-create-update/task-create-update.component';
-import {UserInterface} from '../../../commons/interfaces/user.interface';
 
 @Component({
   selector: 'app-task-table-row',
@@ -33,20 +33,18 @@ export class TaskTableRowComponent implements OnDestroy {
 
   updateOne(event: Event, task: TaskInterface): void {
     event.stopPropagation();
-    const sidebarDataSubscription: Subscription = this.dynamicSidebarService
-      .open({componentData: task, component: TaskCreateUpdateComponent})
-      .pipe(map((data: unknown) => data as [TaskInterface, UserInterface]))
-      .subscribe((data: [TaskInterface, UserInterface]): void => {
 
-        const [updatedTask, assignee] = data;
+    const closeSidebarDataSubscription: Subscription = this.dynamicSidebarService.open({componentData: task, component: TaskCreateUpdateComponent})
+      .pipe(map((data) => data as UserInterface))
+      .subscribe((user: UserInterface | undefined): void => {
 
-        if (task.id === updatedTask.id) {
-          task.assignee = assignee;
+        if (!user) {
+          return;
         }
 
+        this.tasksService.assignUserToTask(task.id, user.id);
       });
-
-    this.subscriptions.add(sidebarDataSubscription);
+    this.subscriptions.add(closeSidebarDataSubscription);
   }
 
   deleteOne(event: Event, task: TaskInterface): void {

@@ -19,9 +19,12 @@
       <div class="app-user-select-card"
            *ngFor="let user of usersList"
            (click)="selectUser(user)"
-           [ngClass]="{ 'selected': selectedUser && selectedUser.id === user.id }">
+           [ngClass]="{ 'selected': selectedUser && selectedUser.id === user.id, 'disabled': user.disabled }">
         <img [src]="user.avatarBae64" alt="{{ user.firstName }} {{ user.lastName }}">
-        <span>{{ user.firstName }} {{ user.lastName }}</span>
+        <span>
+          {{ user.firstName }} {{ user.lastName }}
+          {{ user.disabled ? ' - ' + user.task?.name + ' ' + (user.task?.state! | taskState) : '' }}
+        </span>
       </div>
 
     </ng-container>

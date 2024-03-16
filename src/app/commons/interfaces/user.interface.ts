@@ -6,4 +6,5 @@ export interface UserInterface {
   lastName: string;
   avatarBae64: string;
   task?: TaskInterface | undefined;
+  disabled: boolean;
 }

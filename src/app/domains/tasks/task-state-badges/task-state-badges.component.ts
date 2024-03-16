@@ -16,6 +16,7 @@ import {TaskStateBadgeInterface} from '../../../commons/interfaces/task-state-ba
 export class TaskStateBadgesComponent implements OnInit {
 
   @Input() initialBadgeState: TaskStateEnum = TaskStateEnum.InQueue;
+  @Input() disableId: string | undefined;
   @Output() selectedBadge: EventEmitter<TaskStateBadgeInterface> = new EventEmitter<TaskStateBadgeInterface>();
 
   tasksStateBadgesList: TaskStateBadgeInterface[] = [
@@ -42,6 +43,21 @@ export class TaskStateBadgesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initialSelection();
+  }
+
+  selectBadge(badge: TaskStateBadgeInterface, index: number): void {
+    this.tasksStateBadgesList.forEach((badgeItem: TaskStateBadgeInterface, badgeIndex: number): void => {
+      if (index !== badgeIndex) {
+        badgeItem.selected = false;
+      }
+    });
+
+    badge.selected = true;
+    this.selectedBadge.emit(badge);
+  }
+
+  private initialSelection(): void {
     this.tasksStateBadgesList.map((badge: TaskStateBadgeInterface): TaskStateBadgeInterface => {
 
       if (badge.state === this.initialBadgeState) {
@@ -51,21 +67,5 @@ export class TaskStateBadgesComponent implements OnInit {
 
       return badge;
     });
-  }
-
-  selectBadge(index: number): void {
-    if (this.tasksStateBadgesList[index].selected) {
-      this.tasksStateBadgesList[index].selected = false;
-      this.selectedBadge.emit(this.tasksStateBadgesList[index]);
-    } else {
-      this.tasksStateBadgesList.forEach((badge: TaskStateBadgeInterface, labelIndex: number): void => {
-        if (labelIndex !== index) {
-          badge.selected = false;
-        }
-      });
-
-      this.tasksStateBadgesList[index].selected = true;
-      this.selectedBadge.emit(this.tasksStateBadgesList[index]);
-    }
   }
 }

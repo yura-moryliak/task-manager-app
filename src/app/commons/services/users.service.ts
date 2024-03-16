@@ -15,18 +15,27 @@ export class UsersService {
   }
 
   // In memory store
-  private usersList: UserInterface[] = [
+  usersList: UserInterface[] = [
     {
       id: 1,
-      firstName: 'John',
-      lastName: 'Doe',
-      avatarBae64: fallbackAvatar
+      firstName: 'Arnold',
+      lastName: 'Schwarzenegger',
+      avatarBae64: fallbackAvatar,
+      disabled: false
     },
     {
       id: 2,
-      firstName: 'Sara',
-      lastName: 'Doe',
-      avatarBae64: fallbackAvatar
+      firstName: 'Lillu',
+      lastName: 'Dallas',
+      avatarBae64: fallbackAvatar,
+      disabled: false
+    },
+    {
+      id: 3,
+      firstName: 'Pogo',
+      lastName: 'Duranga',
+      avatarBae64: fallbackAvatar,
+      disabled: false
     }
   ];
 
@@ -41,7 +50,7 @@ export class UsersService {
   update(updateModel: UserInterface): void {
     this.usersList.map((user: UserInterface): UserInterface => {
       if (updateModel.id === user.id) {
-        user = { ...updateModel };
+        user = updateModel;
         return user;
       }
 
@@ -53,5 +62,15 @@ export class UsersService {
   delete(userId: number): void {
     this.usersList = this.usersList.filter((user: UserInterface) => user.id !== userId);
     this.usersListBehaviorSubject.next(this.usersList);
+  }
+
+  removeTaskFromUser(taskId: number): void {
+    const user: UserInterface | undefined = this.usersList.find((user: UserInterface) => user.task && user.task.id === taskId);
+
+    if (!user) {
+      return;
+    }
+
+    user.task = undefined;
   }
 }

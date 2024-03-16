@@ -70,6 +70,11 @@
 
       }
 
+      &.disabled {
+        cursor: default;
+        opacity: $common-disable-opacity;
+      }
+
       img {
         width: 40px;
         height: 40px;

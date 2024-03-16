@@ -5,14 +5,15 @@ import {CommonModule} from '@angular/common';
 import {map, Subscription} from 'rxjs';
 
 import {TasksService} from '../../../commons/services/tasks.service';
+import {UsersService} from '../../../commons/services/users.service';
 import {TaskStateEnum} from '../../../commons/enums/task-state.enum';
 import {TaskInterface} from '../../../commons/interfaces/task.interface';
+import {UserInterface} from '../../../commons/interfaces/user.interface';
+import {UserSelectComponent} from '../../users/user-select/user-select.component';
 import {DynamicSidebarService} from '../../../commons/services/dynamic-sidebar.service';
 import {TaskStateBadgesComponent} from '../task-state-badges/task-state-badges.component';
 import {TaskStateBadgeInterface} from '../../../commons/interfaces/task-state-badge.interface';
 import {TaskCreateUpdateFormInterface} from '../../../commons/interfaces/task-create-update-form-group.interface';
-import {UserSelectComponent} from '../../users/user-select/user-select.component';
-import {UserInterface} from '../../../commons/interfaces/user.interface';
 
 @Component({
   selector: 'app-task-create-update',
@@ -25,6 +26,7 @@ import {UserInterface} from '../../../commons/interfaces/user.interface';
 export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
 
   private tasksService: TasksService = inject(TasksService);
+  private usersService: UsersService = inject(UsersService);
   private dynamicSidebarService: DynamicSidebarService = inject(DynamicSidebarService);
   private subscriptions: Subscription = new Subscription();
 
@@ -68,7 +70,19 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
       this.taskToUpdate.state = this.taskStateBadge.state;
     }
 
-    this.dynamicSidebarService.close([this.taskToUpdate, this.assignee]);
+    if (!this.assignee) {
+      // REQUIREMENT: A task which is not assigned to any user can take 'in queue' state only.
+      if (this.taskToUpdate && this.taskToUpdate.state === TaskStateEnum.InProgress) {
+        this.taskToUpdate.state = TaskStateEnum.InQueue;
+      }
+
+      this.taskToUpdate.assignee = this.assignee;
+      this.usersService.removeTaskFromUser(this.taskToUpdate.id);
+      this.dynamicSidebarService.close();
+      return;
+    }
+
+    this.dynamicSidebarService.close(this.assignee);
   }
 
   selectedUser(user: UserInterface | undefined): void {

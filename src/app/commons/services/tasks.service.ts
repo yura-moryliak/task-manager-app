@@ -1,9 +1,11 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 
 import {BehaviorSubject, Observable} from 'rxjs';
 
 import {TaskInterface} from '../interfaces/task.interface';
 import {TaskStateEnum} from '../enums/task-state.enum';
+import {UsersService} from './users.service';
+import {UserInterface} from '../interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -33,8 +35,19 @@ export class TasksService {
       createdAt: new Date(),
       modifiedAt: null,
       state: TaskStateEnum.InQueue
+    },
+    {
+      id: 3,
+      name: 'Task 3',
+      checked: false,
+      description: 'Description for task 3',
+      createdAt: new Date(),
+      modifiedAt: null,
+      state: TaskStateEnum.InQueue
     }
   ];
+
+  private usersService: UsersService = inject(UsersService);
 
   private tasksListBehaviorSubject: BehaviorSubject<TaskInterface[]> =
     new BehaviorSubject<TaskInterface[]>(this.tasksList);
@@ -52,7 +65,7 @@ export class TasksService {
   update(updateModel: TaskInterface): void {
     this.tasksList.map((task: TaskInterface): TaskInterface => {
       if (updateModel.id === task.id) {
-        task = { ...task, ...updateModel };
+        task = updateModel;
         return task;
       }
 
@@ -74,5 +87,43 @@ export class TasksService {
   deleteSelected(tasksList: TaskInterface[]): void {
     this.tasksList = this.tasksList.filter((task: TaskInterface) => !tasksList.includes(task));
     this.tasksListBehaviorSubject.next(this.tasksList);
+  }
+
+  assignUserToTask(taskId: number, userId: number): void {
+    const task: TaskInterface | undefined = this.tasksList.find(
+      (task: TaskInterface): boolean => task.id === taskId
+    );
+    const user: UserInterface | undefined = this.usersService.usersList.find(
+      (user: UserInterface): boolean => user.id === userId);
+
+    if (!task || !user) {
+      return;
+    }
+
+    const previousTaskOfUser: TaskInterface | undefined = this.tasksList.find(
+      (task: TaskInterface): boolean => task.assignee?.id === userId
+    );
+
+    if (previousTaskOfUser && previousTaskOfUser.id !== taskId) {
+      this.clearUserFromTask(previousTaskOfUser.id);
+    }
+
+    task.assignee = user;
+
+    // Avoid circular assignment for task
+    const { assignee, ...pureTask } = task;
+    user.task = pureTask;
+  }
+
+  clearUserFromTask(taskId: number): void {
+    const task: TaskInterface | undefined = this.tasksList.find(
+      (task: TaskInterface): boolean => task.id === taskId
+    );
+
+    if (!task) {
+      return;
+    }
+
+    task.assignee = undefined;
   }
 }
