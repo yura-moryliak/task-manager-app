@@ -1,6 +1,6 @@
 import {ComponentRef, Injectable, ViewContainerRef} from '@angular/core';
 
-import {BehaviorSubject, filter, Observable, Subject, take} from 'rxjs';
+import {BehaviorSubject, Observable, Subject, take} from 'rxjs';
 
 import {DynamicSidebarComponent} from '../components/dynamic-sidebar/dynamic-sidebar.component';
 import {DynamicSidebarConfigInterface} from '../interfaces/dynamic-sidebar-config.interface';
@@ -37,14 +37,10 @@ export class DynamicSidebarService {
       throw new Error('Can not create dynamic component');
     }
 
-    // this.closedSubject.next(undefined);
     this.dynamicSidebarComponentRef.instance.component = config.component;
     this.dynamicSidebarDataBehaviourSubject.next(config.componentData ? config.componentData : undefined);
 
-    return this.closedSubject.pipe(
-      take(1),
-      // filter((data: unknown) => !!data)
-    );
+    return this.closedSubject.pipe(take(1));
   }
 
   close(data?: any | any[] | undefined): void {
