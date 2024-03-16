@@ -31,7 +31,15 @@
   <div class="app-user-card-content" *ngIf="user.task">
 
     <div class="app-user-task">
-      <span>{{ user.task.name }} - {{ user.task.state | taskState }}</span>
+      <span>{{ user.task.name }}</span>
+      <span class="app-task-state-badge"
+            [ngClass]="{
+              'in-queue': (user.task.state | taskState : true) === TaskStateEnum.InQueue,
+              'in-progress': (user.task.state | taskState : true) === TaskStateEnum.InProgress,
+              'done': (user.task.state | taskState : true) === TaskStateEnum.Done
+            }">
+        {{ user.task.state | taskState }}
+      </span>
     </div>
 
   </div>

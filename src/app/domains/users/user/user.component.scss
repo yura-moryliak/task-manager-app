@@ -1,4 +1,5 @@
 @import "../../../../variables";
+@import "../../../../assets/mixins/task-state-badge.mixin";
 
 .app-user-card {
   display: flex;
@@ -47,12 +48,18 @@
     padding: 0 10px;
 
     .app-user-task {
+      display: flex;
+      align-items: center;
+
+      @include task-state-badge-mixin;
 
       span {
-        display: flex;
-        width: 100%;
-        border-top: 1px solid $border-color;
         margin: 10px 0;
+
+        &:first-of-type {
+          margin-right: 20px;
+          font-style: italic;
+        }
       }
     }
   }
