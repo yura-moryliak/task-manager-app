@@ -20,7 +20,16 @@
     font-size: 12px;
 
     i.pi {
+      width: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
       transition: $common-transition;
+
+      &:hover {
+        color: $main-button-color;
+      }
     }
 
   }
