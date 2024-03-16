@@ -11,6 +11,7 @@
         <i class="pi pi-plus-circle"></i>
       </button>
       <button class="app-button-primary" (click)="deleteTasks()" [disabled]="!areAllTasksChecked && !areSomeTasksCheckedToDelete">
+        <!--TODO FIX IT-->
         {{ areAllTasksChecked ? 'Delete all' : areSomeTasksCheckedToDelete ? 'Delete selected': 'No selected tasks' }}
       </button>
     </div>
