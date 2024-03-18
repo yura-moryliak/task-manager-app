@@ -13,6 +13,9 @@ import {TaskInterface} from '../../commons/interfaces/task.interface';
 import {TaskTableRowComponent} from './task-table-row/task-table-row.component';
 import {DynamicSidebarService} from '../../commons/services/dynamic-sidebar.service';
 import {TaskCreateUpdateComponent} from './task-create-update/task-create-update.component';
+import {TaskStateEnum} from "../../commons/enums/task-state.enum";
+import {UsersService} from "../../commons/services/users.service";
+import {UserInterface} from "../../commons/interfaces/user.interface";
 
 @Component({
   selector: 'app-tasks',
@@ -25,6 +28,7 @@ import {TaskCreateUpdateComponent} from './task-create-update/task-create-update
 export class TasksComponent implements OnInit, OnDestroy {
 
   private tasksService: TasksService = inject(TasksService);
+  private usersService: UsersService = inject(UsersService);
   private dynamicSidebarService: DynamicSidebarService = inject(DynamicSidebarService);
   private deviceDetectorService: DeviceDetectorService = inject(DeviceDetectorService);
   private subscriptions: Subscription = new Subscription();
@@ -40,6 +44,24 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
 
   deleteAll(): void {
+    const areAllTasksDone: boolean = this.tasksList.every((task: TaskInterface): boolean => task.state === TaskStateEnum.Done);
+
+    if (areAllTasksDone) {
+      this.tasksList.forEach((task: TaskInterface) => {
+        const { assignee, ...pureTask } = task;
+
+        if (!assignee) {
+          return;
+        }
+
+        assignee.task = undefined;
+        this.usersService.update(assignee);
+      });
+
+      this.tasksService.deleteAll();
+      return;
+    }
+
     this.tasksService.deleteAll();
   }
 

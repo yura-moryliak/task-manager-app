@@ -6,7 +6,8 @@ import {UsersService} from './users.service';
 import {TaskStateEnum} from '../enums/task-state.enum';
 import {TaskInterface} from '../interfaces/task.interface';
 import {UserInterface} from '../interfaces/user.interface';
-import {environment} from "../../../environments/environment.development";
+
+import {environment} from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class TasksService {
   }
 
   // In memory store
-  tasksList: TaskInterface[] = environment.isDemo ?
+  private tasksList: TaskInterface[] = environment.isDemo ?
     [] :
     [
       {
@@ -88,24 +89,24 @@ export class TasksService {
   }
 
   assignUserToTask(taskId: number, userId: number): void {
-    const task: TaskInterface | undefined = this.tasksList.find(
-      (task: TaskInterface): boolean => task.id === taskId
-    );
-    const user: UserInterface | undefined = this.usersService.usersList.find(
-      (user: UserInterface): boolean => user.id === userId);
+    const taskIndex: number = this.tasksList.findIndex((task: TaskInterface): boolean => task.id === taskId);
+    const userIndex: number = this.usersService.usersList.findIndex((user: UserInterface): boolean => user.id === userId);
 
-    if (!task || !user) {
+    if (taskIndex === -1 || userIndex === -1) {
       return;
     }
 
-    const previousTaskOfUser: TaskInterface | undefined = this.tasksList.find(
-      (task: TaskInterface): boolean => task.assignee?.id === userId
-    );
+    const task: TaskInterface = this.tasksList[taskIndex];
+    const user: UserInterface = this.usersService.usersList[userIndex];
 
-    if (previousTaskOfUser && previousTaskOfUser.id !== taskId) {
-      this.clearUserFromTask(previousTaskOfUser.id);
-    }
+    // Remove user from any other task if already assigned
+    this.tasksList.forEach((task: TaskInterface): void => {
+      if (task.assignee && task.assignee.id === userId && task.id !== taskId) {
+        task.assignee = undefined;
+      }
+    });
 
+    // Assign the user to the task
     task.assignee = user;
     this.update(task);
 
@@ -115,15 +116,5 @@ export class TasksService {
     this.usersService.update(user);
   }
 
-  clearUserFromTask(taskId: number): void {
-    const task: TaskInterface | undefined = this.tasksList.find(
-      (task: TaskInterface): boolean => task.id === taskId
-    );
 
-    if (!task) {
-      return;
-    }
-
-    task.assignee = undefined;
-  }
 }

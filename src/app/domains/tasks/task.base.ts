@@ -8,6 +8,7 @@ import {UserInterface} from '../../commons/interfaces/user.interface';
 import {TaskInterface} from '../../commons/interfaces/task.interface';
 import {DynamicSidebarService} from '../../commons/services/dynamic-sidebar.service';
 import {TaskCreateUpdateComponent} from './task-create-update/task-create-update.component';
+import {UsersService} from "../../commons/services/users.service";
 
 @Component({
   selector: 'app-task-base',
@@ -16,6 +17,7 @@ import {TaskCreateUpdateComponent} from './task-create-update/task-create-update
 export abstract class TaskBase implements OnDestroy {
 
   private tasksService: TasksService = inject(TasksService);
+  private userService: UsersService = inject(UsersService);
   private dynamicSidebarService: DynamicSidebarService = inject(DynamicSidebarService);
   private subscriptions: Subscription = new Subscription();
 
@@ -44,6 +46,14 @@ export abstract class TaskBase implements OnDestroy {
 
   deleteOne(event: Event, task: TaskInterface): void {
     event.stopPropagation();
+
+    if (task.state === TaskStateEnum.Done && !!task.assignee) {
+      this.tasksService.delete(task.id);
+      task.assignee.task = undefined;
+      this.userService.update(task.assignee);
+      return;
+    }
+
     this.tasksService.delete(task.id);
   }
 
