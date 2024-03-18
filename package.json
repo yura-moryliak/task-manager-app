@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test --code-coverage --progress",
+    "test:watch": "ng test --code-coverage --progress --watch"
   },
   "private": true,
   "dependencies": {
