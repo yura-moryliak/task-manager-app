@@ -1,0 +1,81 @@
+@import "../../../../variables";
+
+.app-task-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: $border-radius;
+  background-color: $element-background-color;
+  padding: 10px;
+  margin-bottom: 10px;
+
+  .app-task-card-header {
+    display: flex;
+    border-bottom: 1px solid $border-color;
+    padding: 10px 0;
+
+    .side-container {
+      display: flex;
+      align-items: center;
+      flex: 1;
+
+      img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 100%;
+        margin: 0 10px;
+      }
+
+      &:last-of-type {
+        justify-content: flex-end;
+      }
+
+      span {
+        &.app-task-state-badge {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+
+  .app-task-card-content {
+
+    p {
+      max-width: 350px;
+      padding-right: 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      border-top: 1px solid $border-color;
+
+      li {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 0;
+
+        span {
+          font-size: 12px;
+        }
+      }
+
+    }
+
+  }
+
+  .app-task-card-footer {
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      &:not(&:last-of-type) {
+        margin: 0 10px;
+      }
+    }
+  }
+}

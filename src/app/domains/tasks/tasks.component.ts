@@ -4,6 +4,9 @@ import {FormsModule} from '@angular/forms';
 
 import {Subscription} from 'rxjs';
 
+import {DeviceDetectorService} from "ngx-device-detector";
+
+import {TaskCardComponent} from './task-card/task-card.component';
 import {TaskStatePipe} from '../../commons/pipes/task-state.pipe';
 import {TasksService} from '../../commons/services/tasks.service';
 import {TaskInterface} from '../../commons/interfaces/task.interface';
@@ -14,7 +17,7 @@ import {TaskCreateUpdateComponent} from './task-create-update/task-create-update
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [CommonModule, FormsModule, TaskStatePipe, TaskTableRowComponent],
+  imports: [CommonModule, FormsModule, TaskStatePipe, TaskTableRowComponent, TaskCardComponent],
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.scss'],
   encapsulation: ViewEncapsulation.None
@@ -23,8 +26,10 @@ export class TasksComponent implements OnInit, OnDestroy {
 
   private tasksService: TasksService = inject(TasksService);
   private dynamicSidebarService: DynamicSidebarService = inject(DynamicSidebarService);
+  private deviceDetectorService: DeviceDetectorService = inject(DeviceDetectorService);
   private subscriptions: Subscription = new Subscription();
 
+  isDeviceMobile: boolean = this.deviceDetectorService.isMobile(this.deviceDetectorService.userAgent);
   tasksList: TaskInterface[] = [];
   isDeleteAllButtonDisabled: boolean = false;
 

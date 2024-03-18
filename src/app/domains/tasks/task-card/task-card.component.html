@@ -1,1 +1,56 @@
-<p>task-card works!</p>
+<div class="app-task-card" *ngIf="task">
+
+  <header class="app-task-card-header">
+
+    <div class="side-container">
+      <span>{{ task.name }}</span>
+      <span class="app-task-state-badge" [ngClass]="{
+        'in-queue': (task.state | taskState : true) === TaskStateEnum.InQueue,
+        'in-progress': (task.state | taskState : true) === TaskStateEnum.InProgress,
+        'done': (task.state | taskState : true) === TaskStateEnum.Done,
+      }">{{ task.state | taskState }}</span>
+    </div>
+
+    <div class="side-container" *ngIf="task.assignee; else noAssignee">
+      <img [src]="task.assignee.avatarBae64" alt="{{ task.assignee.firstName }} {{ task.assignee.lastName }}">
+      {{ task.assignee.firstName }} {{ task.assignee.lastName[0] + '.' }}
+    </div>
+
+    <ng-template #noAssignee>
+      <div class="side-container">
+        <span>No assignee</span>
+      </div>
+    </ng-template>
+
+  </header>
+
+  <section class="app-task-card-content">
+    <p>{{ task.description }}</p>
+
+    <ul>
+      <li>
+        <span>Created at:</span>
+        <span>{{ task.createdAt | date : 'MMM d, y, HH:mm:ss' }}</span>
+      </li>
+      <li>
+        <span>Modified at:</span>
+        <span>{{ task.modifiedAt ? (task.modifiedAt | date : 'MMM d, y, HH:mm:ss') : 'Untouched' }}</span>
+      </li>
+    </ul>
+  </section>
+
+  <footer class="app-task-card-footer">
+
+    <button class="app-button-rounded" (click)="updateOne($event, task)">
+      <i class="pi pi-pencil"></i>
+    </button>
+
+    <button class="app-button-rounded"
+            (click)="deleteOne($event, task)"
+            [disabled]="task.disabled">
+      <i class="pi pi-trash"></i>
+    </button>
+
+  </footer>
+
+</div>

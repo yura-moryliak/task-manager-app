@@ -68,6 +68,11 @@ export class UsersService {
     this.usersListBehaviorSubject.next(this.usersList);
   }
 
+  deleteAll(): void {
+    this.usersList = [];
+    this.usersListBehaviorSubject.next(this.usersList);
+  }
+
   removeTaskFromUser(taskId: number): void {
     const user: UserInterface | undefined = this.usersList.find((user: UserInterface) => user.task && user.task.id === taskId);
 

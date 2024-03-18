@@ -20,7 +20,7 @@
   </header>
 
   <div class="app-domain-content" *ngIf="tasksList.length > 0; else emptyTasksList">
-    <table>
+    <table *ngIf="!isDeviceMobile; else taskCardsView">
       <thead>
         <tr>
           <th>Name</th>
@@ -40,6 +40,10 @@
       </tbody>
     </table>
   </div>
+
+  <ng-template #taskCardsView>
+    <app-task-card *ngFor="let task of tasksList; trackBy: trackByTaskId" [task]="task"></app-task-card>
+  </ng-template>
 
   <ng-template #emptyTasksList>
     <div class="app-domain-empty-container">

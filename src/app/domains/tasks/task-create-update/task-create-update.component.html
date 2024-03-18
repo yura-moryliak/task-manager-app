@@ -20,7 +20,7 @@
 
   <div class="app-form-group-input">
     <label for="description">Description</label>
-    <input id="description" type="text" placeholder="Provide task description" formControlName="description" />
+    <textarea id="description" type="text" placeholder="Provide task description" formControlName="description"></textarea>
 
     <div class="app-form-group-input-errors"
          *ngIf="form.controls.description.invalid && form.controls.description.dirty || form.controls.description.touched">

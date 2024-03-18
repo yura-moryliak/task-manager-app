@@ -24,7 +24,9 @@
           align-items: center;
 
           button {
-            margin: 0 10px;
+            &:not(&:last-of-type) {
+              margin: 0 10px;
+            }
           }
         }
       }
@@ -91,6 +93,13 @@
               vertical-align: middle;
               animation-name: fadeIn;
               animation-duration: $common-animation-duration;
+
+              &.app-task-description {
+                max-width: 100px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              }
 
               .app-task-assignee {
                 display: flex;

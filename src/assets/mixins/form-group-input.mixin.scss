@@ -12,7 +12,7 @@
       font-size: 12px;
     }
 
-    input[type=text] {
+    input[type=text], textarea {
       border: none;
       background-color: $element-background-color;
       height: 40px;
@@ -23,6 +23,14 @@
       &:focus {
         outline: 1px solid $border-color;
       }
+    }
+
+    textarea {
+      font-size: 14px;
+      resize: none;
+      min-height: 200px;
+      max-height: 350px;
+      font-family: inherit;
     }
 
     .app-form-group-input-errors {

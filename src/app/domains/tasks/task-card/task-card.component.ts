@@ -1,15 +1,15 @@
-import {Component, Input} from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {TaskInterface} from "../../../commons/interfaces/task.interface";
+
+import {TaskBase} from '../task.base';
+import {TaskStatePipe} from '../../../commons/pipes/task-state.pipe';
 
 @Component({
   selector: 'app-task-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TaskStatePipe],
   templateUrl: './task-card.component.html',
-  styleUrls: ['./task-card.component.scss']
+  styleUrls: ['./task-card.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
-export class TaskCardComponent {
-  @Input({required: true}) task!: TaskInterface | undefined;
-
-}
+export class TaskCardComponent extends TaskBase { }

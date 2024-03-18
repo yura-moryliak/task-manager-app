@@ -1,8 +1,9 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
+import {DeviceDetectorService} from 'ngx-device-detector';
+
 import {SidebarToggleService} from '../../services/sidebar-toggle.service';
-import {DeviceDetectorService} from "ngx-device-detector";
 
 @Component({
   selector: 'app-nav-bar',
@@ -20,6 +21,10 @@ export class NavBarComponent {
   isDeviceMobile: boolean = this.deviceDetectorService.isMobile(this.deviceDetectorService.userAgent);
 
   toggleSidebar(): void {
+    if (!this.isDeviceMobile) {
+      return;
+    }
+
     this.sidebarToggleService.toggle();
   }
 }
