@@ -7,7 +7,7 @@
     "build": "ng build",
     "build:production": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test --code-coverage --progress",
+    "test": "ng test --watch",
     "test:watch": "ng test --code-coverage --progress --watch"
   },
   "engines": {

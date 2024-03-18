@@ -20,6 +20,6 @@ export class AppComponent implements OnInit {
   private dynamicSidebarService: DynamicSidebarService = inject(DynamicSidebarService);
 
   ngOnInit(): void {
-    this.dynamicSidebarService.viewContainerRef = this.rootVcr;
+    this.dynamicSidebarService.setViewContainerRef(this.rootVcr);
   }
 }

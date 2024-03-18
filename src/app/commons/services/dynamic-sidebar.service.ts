@@ -10,7 +10,7 @@ import {DynamicSidebarConfigInterface} from '../interfaces/dynamic-sidebar-confi
 })
 export class DynamicSidebarService {
 
-  set viewContainerRef(vcr: ViewContainerRef) {
+  setViewContainerRef(vcr: ViewContainerRef) {
     if (!vcr) {
       throw new Error('View container reference must be passed at root component');
     }
