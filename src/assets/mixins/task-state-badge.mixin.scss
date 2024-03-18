@@ -13,6 +13,7 @@
     color: $secondary-text-color;
     transition: $common-transition;
     cursor: pointer;
+    user-select: none;
 
     &:last-of-type {
       margin-left: 0;

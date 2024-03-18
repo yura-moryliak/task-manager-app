@@ -17,7 +17,7 @@
     cursor: pointer;
 
     &:hover {
-      opacity: $common-opacity;
+      border: 1px solid $border-color;
     }
 
     i.pi {

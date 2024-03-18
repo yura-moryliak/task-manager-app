@@ -20,9 +20,7 @@
         <i class="pi pi-pencil"></i>
       </button>
 
-      <button class="app-button-rounded"
-              (click)="delete()"
-              [disabled]="user.task && user.task.state === TaskStateEnum.InProgress">
+      <button class="app-button-rounded" (click)="delete()" [disabled]="!!user.task">
         <i class="pi pi-trash"></i>
       </button>
 

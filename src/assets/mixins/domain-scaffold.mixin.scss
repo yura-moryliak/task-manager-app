@@ -21,6 +21,7 @@
         &:last-of-type {
           flex-direction: row;
           justify-content: flex-end;
+          align-items: center;
 
           button {
             margin: 0 10px;
@@ -83,18 +84,6 @@
 
             &:hover {
               opacity: $common-opacity;
-
-              td {
-
-                &:has(.app-button-rounded) {
-
-                  .app-button-rounded {
-                    background-color: $secondary-button-color;
-                  }
-
-                }
-
-              }
             }
 
             td {
