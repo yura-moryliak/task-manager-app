@@ -10,10 +10,12 @@
       <button class="app-button-rounded" (click)="addNew()">
         <i class="pi pi-plus-circle"></i>
       </button>
-      <button class="app-button-primary" (click)="deleteTasks()" [disabled]="!areAllTasksChecked && !areSomeTasksCheckedToDelete">
-        <!--TODO FIX IT-->
-        {{ areAllTasksChecked ? 'Delete all' : areSomeTasksCheckedToDelete ? 'Delete selected': 'No selected tasks' }}
+
+      <button class="app-button-primary"
+              (click)="deleteAll()" [disabled]="isDeleteAllButtonDisabled">
+        Delete all
       </button>
+
     </div>
   </header>
 
@@ -21,12 +23,6 @@
     <table>
       <thead>
         <tr>
-          <th>
-            <input type="checkbox"
-                   #toggleAllTasksElRef
-                   (change)="toggleAll()"
-                   [indeterminate]="areAllTasksChecked === null" />
-          </th>
           <th>Name</th>
           <th>Description</th>
           <th>Create at</th>
@@ -39,8 +35,7 @@
       <tbody>
         <app-task-table-row
           *ngFor="let task of tasksList; trackBy: trackByTaskId"
-          [task]="task"
-          (toggledTask)="toggleOne($event)">
+          [task]="task">
         </app-task-table-row>
       </tbody>
     </table>

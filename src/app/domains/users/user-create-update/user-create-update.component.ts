@@ -8,7 +8,7 @@ import {UsersService} from '../../../commons/services/users.service';
 import {UserInterface} from '../../../commons/interfaces/user.interface';
 import {fallbackAvatar} from '../../../commons/fallback-avatar';
 import {DynamicSidebarService} from '../../../commons/services/dynamic-sidebar.service';
-import {UserCreateUpdateFormInterface} from "../../../commons/interfaces/user-create-update-form-group.interface";
+import {UserCreateUpdateFormInterface} from '../../../commons/interfaces/user-create-update-form-group.interface';
 
 @Component({
   selector: 'app-user-create-update',
@@ -60,8 +60,8 @@ export class UserCreateUpdateComponent implements OnInit, OnDestroy {
 
     const reader: FileReader = new FileReader();
 
-    reader.onload = () => {
-      const base64String = (reader.result as string).split(',')[1];
+    reader.onload = (): void => {
+      const base64String: string = (reader.result as string).split(',')[1];
       this.form.controls.avatarBae64.setValue(`data:image/jpeg;base64,${base64String}`);
       this.form.controls.avatarBae64.setErrors(null);
     }

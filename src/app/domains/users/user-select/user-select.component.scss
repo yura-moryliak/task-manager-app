@@ -47,6 +47,9 @@
     max-height: 250px;
     min-height: 40px;
     overflow: auto;
+    animation-name: appear;
+    animation-timing-function: ease-in;
+    animation-duration: $common-appear-animation-duration;
 
     .app-user-select-card {
       display: flex;

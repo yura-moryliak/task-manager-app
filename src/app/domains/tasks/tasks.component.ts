@@ -1,4 +1,4 @@
-import {Component, ElementRef, inject, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 
@@ -21,77 +21,25 @@ import {TaskCreateUpdateComponent} from './task-create-update/task-create-update
 })
 export class TasksComponent implements OnInit, OnDestroy {
 
-  @ViewChild('toggleAllTasksElRef')
-  private toggleAllTasksElRef: ElementRef<HTMLInputElement> | undefined;
-
   private tasksService: TasksService = inject(TasksService);
   private dynamicSidebarService: DynamicSidebarService = inject(DynamicSidebarService);
   private subscriptions: Subscription = new Subscription();
 
   tasksList: TaskInterface[] = [];
-  areAllTasksChecked: boolean | null = null;
-  areSomeTasksCheckedToDelete: boolean = false;
+  isDeleteAllButtonDisabled: boolean = false;
 
-  trackByTaskId = (index: number, task: TaskInterface) => {
-    return task.id;
-  }
+  trackByTaskId = (index: number, task: TaskInterface) => task.id;
 
   ngOnInit(): void {
     this.initTasksList();
   }
 
-  toggleAll(): void {
-    this.areAllTasksChecked = !this.areAllTasksChecked;
-
-    this.tasksList.map((task: TaskInterface): TaskInterface => {
-      task.checked = this.areAllTasksChecked as boolean;
-      return task;
-    });
-  }
-
-  toggleOne(task: TaskInterface): void {
-    task.checked = !task.checked;
-
-    const areSomeTasksUnChecked: boolean = this.tasksList.some((task: TaskInterface) => !task.checked);
-    const areAllChecked: boolean = this.tasksList.every((task: TaskInterface) => task.checked);
-    const areSomeTasksCheckedToDelete: boolean = this.tasksList.some((task: TaskInterface) => !task.checked);
-
-    if (areSomeTasksUnChecked) {
-      this.areAllTasksChecked = null;
-      setTimeout(
-          (): boolean => this.toggleAllTasksElRef!.nativeElement.checked = false,
-          100
-      );
-    }
-
-    if (areAllChecked && !this.areAllTasksChecked) {
-      this.areAllTasksChecked = true;
-      setTimeout(
-          (): boolean => this.toggleAllTasksElRef!.nativeElement.checked = true,
-          100
-      );
-    }
-
-    if (areSomeTasksCheckedToDelete) {
-      this.areSomeTasksCheckedToDelete = areSomeTasksCheckedToDelete;
-    }
+  deleteAll(): void {
+    this.tasksService.deleteAll();
   }
 
   addNew(): void {
-    this.dynamicSidebarService.open({ component: TaskCreateUpdateComponent })
-  }
-
-  deleteTasks(): void {
-    if (this.areSomeTasksCheckedToDelete) {
-      const tasksCheckedToDelete: TaskInterface[] = this.tasksList.filter((task: TaskInterface) => task.checked);
-      this.tasksService.deleteSelected(tasksCheckedToDelete);
-      this.areAllTasksChecked = false;
-      this.areSomeTasksCheckedToDelete = false;
-      return;
-    }
-
-    this.areAllTasksChecked = false;
-    this.tasksService.deleteAll();
+    this.dynamicSidebarService.open({component: TaskCreateUpdateComponent})
   }
 
   ngOnDestroy(): void {
@@ -100,20 +48,10 @@ export class TasksComponent implements OnInit, OnDestroy {
 
   private initTasksList(): void {
     const tasksDataSubscription: Subscription = this.tasksService.tasksList$.subscribe(
-        (tasksList: TaskInterface[]): void => {
-          this.tasksList = tasksList;
-
-          if (this.areAllTasksChecked) {
-            this.updateTasksChecked();
-          }
-        });
+      (tasksList: TaskInterface[]): void => {
+        this.tasksList = tasksList;
+        this.isDeleteAllButtonDisabled = this.tasksList.some((task: TaskInterface) => task.disabled);
+      });
     this.subscriptions.add(tasksDataSubscription);
-  }
-
-  private updateTasksChecked(): void {
-    this.tasksList.map((task: TaskInterface): TaskInterface => {
-      task.checked = true;
-      return task;
-    });
   }
 }

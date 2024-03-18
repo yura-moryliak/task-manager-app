@@ -1,4 +1,4 @@
-<section class="app-domain-container users-container">
+<section class="app-domain-container users-container" *ngIf="usersList$ | async as usersList">
 
   <header class="app-domain-header">
     <div class="side-container">

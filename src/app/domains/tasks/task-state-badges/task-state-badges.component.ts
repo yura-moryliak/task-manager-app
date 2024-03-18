@@ -38,9 +38,7 @@ export class TaskStateBadgesComponent implements OnInit {
   ];
   TaskStateEnum = TaskStateEnum;
 
-  trackByIndex = (index: number) => {
-    return index;
-  }
+  trackByIndex = (index: number) => index;
 
   ngOnInit(): void {
     this.initialSelection();

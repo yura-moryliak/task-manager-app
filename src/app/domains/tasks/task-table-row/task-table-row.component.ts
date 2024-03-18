@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, Input, OnDestroy, Output, ViewEncapsulation} from '@angular/core';
+import {Component, inject, Input, OnDestroy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 
@@ -27,7 +27,6 @@ export class TaskTableRowComponent implements OnDestroy {
   private subscriptions: Subscription = new Subscription();
 
   @Input({required: true}) task: TaskInterface | undefined;
-  @Output() toggledTask: EventEmitter<TaskInterface> = new EventEmitter<TaskInterface>();
 
   TaskStateEnum = TaskStateEnum;
 
@@ -38,7 +37,7 @@ export class TaskTableRowComponent implements OnDestroy {
       .pipe(map((data) => data as UserInterface))
       .subscribe((user: UserInterface | undefined): void => {
 
-        if (!user) {
+        if (!user || !this.task) {
           return;
         }
 
@@ -50,10 +49,6 @@ export class TaskTableRowComponent implements OnDestroy {
   deleteOne(event: Event, task: TaskInterface): void {
     event.stopPropagation();
     this.tasksService.delete(task.id);
-  }
-
-  toggleOne(task: TaskInterface): void {
-    this.toggledTask.emit(task);
   }
 
   ngOnDestroy(): void {

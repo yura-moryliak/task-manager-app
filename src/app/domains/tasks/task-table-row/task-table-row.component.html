@@ -1,9 +1,6 @@
 <ng-container *ngIf="task">
 
-  <tr class="app-tasks-table-row" (click)="toggleOne(task)">
-    <td>
-      <input type="checkbox" [(ngModel)]="task.checked">
-    </td>
+  <tr class="app-tasks-table-row">
     <td>{{ task.name }}</td>
     <td>{{ task.description }}</td>
     <td>{{ task.createdAt | date : 'MMM d, y, HH:mm:ss' }}</td>
@@ -34,7 +31,7 @@
 
       <button class="app-button-rounded"
               (click)="deleteOne($event, task)"
-              [disabled]="task.state === TaskStateEnum.InProgress && task.assignee">
+              [disabled]="task.disabled">
         <i class="pi pi-trash"></i>
       </button>
 

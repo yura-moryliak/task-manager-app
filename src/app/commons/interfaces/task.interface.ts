@@ -4,7 +4,7 @@ import {UserInterface} from './user.interface';
 export interface TaskInterface {
   id: number;
   name: string;
-  checked: boolean;
+  disabled: boolean;
   description: string;
   createdAt: Date;
   modifiedAt: Date | null;

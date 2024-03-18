@@ -2,9 +2,9 @@ import {inject, Injectable} from '@angular/core';
 
 import {BehaviorSubject, Observable} from 'rxjs';
 
-import {TaskInterface} from '../interfaces/task.interface';
-import {TaskStateEnum} from '../enums/task-state.enum';
 import {UsersService} from './users.service';
+import {TaskStateEnum} from '../enums/task-state.enum';
+import {TaskInterface} from '../interfaces/task.interface';
 import {UserInterface} from '../interfaces/user.interface';
 
 @Injectable({
@@ -21,7 +21,7 @@ export class TasksService {
     {
       id: 1,
       name: 'Task 1',
-      checked: false,
+      disabled: false,
       description: 'Description for task 1',
       createdAt: new Date(),
       modifiedAt: null,
@@ -30,7 +30,7 @@ export class TasksService {
     {
       id: 2,
       name: 'Task 2',
-      checked: false,
+      disabled: false,
       description: 'Description for task 2',
       createdAt: new Date(),
       modifiedAt: null,
@@ -39,7 +39,7 @@ export class TasksService {
     {
       id: 3,
       name: 'Task 3',
-      checked: false,
+      disabled: false,
       description: 'Description for task 3',
       createdAt: new Date(),
       modifiedAt: null,
@@ -84,11 +84,6 @@ export class TasksService {
     this.tasksListBehaviorSubject.next(this.tasksList);
   }
 
-  deleteSelected(tasksList: TaskInterface[]): void {
-    this.tasksList = this.tasksList.filter((task: TaskInterface) => !tasksList.includes(task));
-    this.tasksListBehaviorSubject.next(this.tasksList);
-  }
-
   assignUserToTask(taskId: number, userId: number): void {
     const task: TaskInterface | undefined = this.tasksList.find(
       (task: TaskInterface): boolean => task.id === taskId
@@ -109,10 +104,12 @@ export class TasksService {
     }
 
     task.assignee = user;
+    this.update(task);
 
-    // Avoid circular assignment for task
+    // Avoid circular copying for task
     const { assignee, ...pureTask } = task;
     user.task = pureTask;
+    this.usersService.update(user);
   }
 
   clearUserFromTask(taskId: number): void {

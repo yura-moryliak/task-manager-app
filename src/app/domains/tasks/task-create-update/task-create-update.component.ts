@@ -62,26 +62,32 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
     this.taskToUpdate.description = <string>this.form.value.description;
     this.taskToUpdate.modifiedAt = new Date();
 
-    if (this.taskStateBadge && !this.taskStateBadge.selected) {
-      this.taskToUpdate.state = TaskStateEnum.InQueue;
-    }
-
     if (this.taskStateBadge) {
       this.taskToUpdate.state = this.taskStateBadge.state;
+
+      if (this.taskToUpdate.state === TaskStateEnum.InQueue || this.taskToUpdate.state === TaskStateEnum.Done) {
+        this.taskToUpdate.disabled = false;
+      }
+
+      if (this.taskToUpdate.state === TaskStateEnum.InProgress) {
+        this.taskToUpdate.disabled = true;
+      }
     }
 
     if (!this.assignee) {
       // REQUIREMENT: A task which is not assigned to any user can take 'in queue' state only.
       if (this.taskToUpdate && this.taskToUpdate.state === TaskStateEnum.InProgress) {
         this.taskToUpdate.state = TaskStateEnum.InQueue;
+        this.taskToUpdate.disabled = false;
       }
 
-      this.taskToUpdate.assignee = this.assignee;
+      this.taskToUpdate.assignee = undefined;
       this.usersService.removeTaskFromUser(this.taskToUpdate.id);
       this.dynamicSidebarService.close();
       return;
     }
 
+    this.taskToUpdate.assignee = this.assignee;
     this.dynamicSidebarService.close(this.assignee);
   }
 
@@ -102,7 +108,7 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
         this.taskToUpdate = task;
         this.form.setValue({ name: task.name, description: task.description });
       }
-    })
+    });
     this.subscriptions.add(dataSubscription);
   }
 }

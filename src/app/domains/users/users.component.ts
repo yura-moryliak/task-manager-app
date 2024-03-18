@@ -1,8 +1,8 @@
-import {Component, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 
-import {Subscription} from 'rxjs';
+import {Observable} from 'rxjs';
 
 import {UserComponent} from './user/user.component';
 import {UsersService} from '../../commons/services/users.service';
@@ -19,34 +19,20 @@ import {UserCreateUpdateComponent} from './user-create-update/user-create-update
   styleUrls: ['./users.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class UsersComponent implements OnInit, OnDestroy {
+export class UsersComponent implements OnInit {
 
   private usersService: UsersService = inject(UsersService);
   private dynamicSidebarService: DynamicSidebarService = inject(DynamicSidebarService);
-  private subscriptions: Subscription = new Subscription();
 
-  usersList: UserInterface[] = [];
+  usersList$: Observable<UserInterface[]> | undefined;
 
-  trackByUserId = (index: number, userItem: UserInterface) => {
-    return userItem.id;
-  }
+  trackByUserId = (index: number, userItem: UserInterface) => userItem.id;
 
   ngOnInit(): void {
-    this.initUsersList();
+    this.usersList$ = this.usersService.usersList$;
   }
 
   addNew(): void {
     this.dynamicSidebarService.open({ component: UserCreateUpdateComponent });
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
-  private initUsersList(): void {
-    const usersListsDataSubscription: Subscription = this.usersService.usersList$.subscribe(
-      (usersList: UserInterface[]) => this.usersList = usersList
-    );
-    this.subscriptions.add(usersListsDataSubscription);
   }
 }

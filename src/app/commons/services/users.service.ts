@@ -61,7 +61,7 @@ export class UsersService {
   }
 
   delete(userId: number): void {
-    this.usersList = this.usersList.filter((user: UserInterface) => user.id !== userId);
+    this.usersList = this.usersList.filter((user: UserInterface): boolean => user.id !== userId);
     this.usersListBehaviorSubject.next(this.usersList);
   }
 
