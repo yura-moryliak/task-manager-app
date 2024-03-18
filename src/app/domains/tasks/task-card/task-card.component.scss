@@ -13,25 +13,25 @@
     border-bottom: 1px solid $border-color;
     padding: 10px 0;
 
-    .side-container {
-      display: flex;
-      align-items: center;
-      flex: 1;
-
-      app-user-avatar {
-        margin: 0 10px;
-      }
-
-      &:last-of-type {
-        justify-content: flex-end;
-      }
-
-      span {
-        &.app-task-state-badge {
-          margin-left: 10px;
-        }
-      }
-    }
+    //.side-container {
+    //  display: flex;
+    //  align-items: center;
+    //  flex: 1;
+    //
+    //  //app-user-avatar {
+    //  //  margin: 0 10px;
+    //  //}
+    //  //
+    //  //&:last-of-type {
+    //  //  justify-content: flex-end;
+    //  //}
+    //  //
+    //  //span {
+    //  //  &.app-task-state-badge {
+    //  //    margin-left: 10px;
+    //  //  }
+    //  //}
+    //}
   }
 
   .app-task-card-content {
@@ -52,8 +52,15 @@
 
       li {
         display: flex;
+        align-items: center;
         justify-content: space-between;
         margin: 10px 0;
+
+        .app-task-card-assignee {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+        }
 
         span {
           font-size: 12px;

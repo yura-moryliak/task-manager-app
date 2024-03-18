@@ -1,32 +1,7 @@
 <div class="app-task-card" *ngIf="task">
 
   <header class="app-task-card-header">
-
-    <div class="side-container">
-      <span>{{ task.name }}</span>
-      <span class="app-task-state-badge" [ngClass]="{
-        'in-queue': (task.state | taskState : true) === TaskStateEnum.InQueue,
-        'in-progress': (task.state | taskState : true) === TaskStateEnum.InProgress,
-        'done': (task.state | taskState : true) === TaskStateEnum.Done,
-      }">{{ task.state | taskState }}</span>
-    </div>
-
-    <div class="side-container" *ngIf="task.assignee; else noAssignee">
-
-      <app-user-avatar
-        [src]="task.assignee.avatarBae64"
-        alt="{{ task.assignee.firstName }} {{ task.assignee.lastName }}">
-      </app-user-avatar>
-
-      <span>{{ task.assignee.firstName }} {{ task.assignee.lastName[0] + '.' }}</span>
-    </div>
-
-    <ng-template #noAssignee>
-      <div class="side-container">
-        <span>No assignee</span>
-      </div>
-    </ng-template>
-
+    <span>{{ task.name }}</span>
   </header>
 
   <section class="app-task-card-content">
@@ -34,12 +9,34 @@
 
     <ul>
       <li>
+        <span>State:</span>
+        <span class="app-task-state-badge" [ngClass]="{
+        'in-queue': (task.state | taskState : true) === TaskStateEnum.InQueue,
+        'in-progress': (task.state | taskState : true) === TaskStateEnum.InProgress,
+        'done': (task.state | taskState : true) === TaskStateEnum.Done,
+      }">{{ task.state | taskState }}</span>
+      </li>
+      <li>
         <span>Created at:</span>
         <span>{{ task.createdAt | date : 'MMM d, y, HH:mm:ss' }}</span>
       </li>
       <li>
         <span>Modified at:</span>
         <span>{{ task.modifiedAt ? (task.modifiedAt | date : 'MMM d, y, HH:mm:ss') : 'Untouched' }}</span>
+      </li>
+      <li>
+        <span>Assignee:</span>
+
+        <div class="app-task-card-assignee" *ngIf="task.assignee; else noAssignee">
+          <span>{{ task.assignee.firstName }} {{ task.assignee.lastName }}</span>
+          <app-user-avatar [src]="task.assignee.avatarBae64"
+                           alt="{{ task.assignee.firstName }} {{ task.assignee.lastName }}">
+          </app-user-avatar>
+        </div>
+
+        <ng-template #noAssignee>
+          <span>No assignee</span>
+        </ng-template>
       </li>
     </ul>
   </section>
