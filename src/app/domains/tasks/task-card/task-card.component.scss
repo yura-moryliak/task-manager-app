@@ -12,31 +12,12 @@
     display: flex;
     border-bottom: 1px solid $border-color;
     padding: 10px 0;
-
-    //.side-container {
-    //  display: flex;
-    //  align-items: center;
-    //  flex: 1;
-    //
-    //  //app-user-avatar {
-    //  //  margin: 0 10px;
-    //  //}
-    //  //
-    //  //&:last-of-type {
-    //  //  justify-content: flex-end;
-    //  //}
-    //  //
-    //  //span {
-    //  //  &.app-task-state-badge {
-    //  //    margin-left: 10px;
-    //  //  }
-    //  //}
-    //}
   }
 
   .app-task-card-content {
 
     p {
+      font-size: 13px;
       max-width: 350px;
       padding-right: 10px;
       overflow: hidden;
