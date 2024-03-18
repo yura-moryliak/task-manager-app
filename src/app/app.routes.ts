@@ -12,11 +12,6 @@ export const routes: Routes = [
       .then((cmp) => cmp.UsersComponent)
   },
   {
-    path: '**',
-    redirectTo: 'tasks',
-    pathMatch: 'full'
-  },
-  {
     path: '',
     redirectTo: 'tasks',
     pathMatch: 'full'
