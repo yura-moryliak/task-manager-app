@@ -6,6 +6,7 @@ import {UsersService} from './users.service';
 import {TaskStateEnum} from '../enums/task-state.enum';
 import {TaskInterface} from '../interfaces/task.interface';
 import {UserInterface} from '../interfaces/user.interface';
+import {environment} from "../../../environments/environment.development";
 
 @Injectable({
   providedIn: 'root'
@@ -17,35 +18,37 @@ export class TasksService {
   }
 
   // In memory store
-  tasksList: TaskInterface[] = [
-    {
-      id: 1,
-      name: 'Task 1',
-      disabled: false,
-      description: 'Description for task 1',
-      createdAt: new Date(),
-      modifiedAt: null,
-      state: TaskStateEnum.InQueue
-    },
-    {
-      id: 2,
-      name: 'Task 2',
-      disabled: false,
-      description: 'Description for task 2',
-      createdAt: new Date(),
-      modifiedAt: null,
-      state: TaskStateEnum.InQueue
-    },
-    {
-      id: 3,
-      name: 'Task 3',
-      disabled: false,
-      description: 'Description for task 3',
-      createdAt: new Date(),
-      modifiedAt: null,
-      state: TaskStateEnum.InQueue
-    }
-  ];
+  tasksList: TaskInterface[] = environment.isDemo ?
+    [] :
+    [
+      {
+        id: 1,
+        name: 'Task 1',
+        disabled: false,
+        description: 'Description for task 1',
+        createdAt: new Date(),
+        modifiedAt: null,
+        state: TaskStateEnum.InQueue
+      },
+      {
+        id: 2,
+        name: 'Task 2',
+        disabled: false,
+        description: 'Description for task 2',
+        createdAt: new Date(),
+        modifiedAt: null,
+        state: TaskStateEnum.InQueue
+      },
+      {
+        id: 3,
+        name: 'Task 3',
+        disabled: false,
+        description: 'Description for task 3',
+        createdAt: new Date(),
+        modifiedAt: null,
+        state: TaskStateEnum.InQueue
+      }
+    ];
 
   private usersService: UsersService = inject(UsersService);
 
@@ -107,7 +110,7 @@ export class TasksService {
     this.update(task);
 
     // Avoid circular copying for task
-    const { assignee, ...pureTask } = task;
+    const {assignee, ...pureTask} = task;
     user.task = pureTask;
     this.usersService.update(user);
   }

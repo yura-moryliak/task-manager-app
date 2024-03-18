@@ -4,6 +4,7 @@ import {BehaviorSubject} from 'rxjs';
 
 import {UserInterface} from '../interfaces/user.interface';
 import {fallbackAvatar} from '../fallback-avatar';
+import {environment} from "../../../environments/environment.development";
 
 @Injectable({
   providedIn: 'root'
@@ -16,29 +17,31 @@ export class UsersService {
 
   // In memory store
   // Test case
-  usersList: UserInterface[] = [
-    {
-      id: 1,
-      firstName: 'Arnold',
-      lastName: 'Schwarzenegger',
-      avatarBae64: fallbackAvatar,
-      disabled: false
-    },
-    {
-      id: 2,
-      firstName: 'Lillu',
-      lastName: 'Dallas',
-      avatarBae64: fallbackAvatar,
-      disabled: false
-    },
-    {
-      id: 3,
-      firstName: 'Pogo',
-      lastName: 'Duranga',
-      avatarBae64: fallbackAvatar,
-      disabled: false
-    }
-  ];
+  usersList: UserInterface[] = environment.isDemo ?
+    [] :
+    [
+      {
+        id: 1,
+        firstName: 'Arnold',
+        lastName: 'Schwarzenegger',
+        avatarBae64: fallbackAvatar,
+        disabled: false
+      },
+      {
+        id: 2,
+        firstName: 'Lillu',
+        lastName: 'Dallas',
+        avatarBae64: fallbackAvatar,
+        disabled: false
+      },
+      {
+        id: 3,
+        firstName: 'Pogo',
+        lastName: 'Duranga',
+        avatarBae64: fallbackAvatar,
+        disabled: false
+      }
+    ];
 
   private usersListBehaviorSubject: BehaviorSubject<UserInterface[]> = new BehaviorSubject(this.usersList);
 
