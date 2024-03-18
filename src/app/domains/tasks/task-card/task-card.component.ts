@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 
 import {TaskBase} from '../task.base';
 import {TaskStatePipe} from '../../../commons/pipes/task-state.pipe';
-import {UserAvatarComponent} from "../../../commons/components/user-avatar/user-avatar.component";
+import {UserAvatarComponent} from '../../../commons/components/user-avatar/user-avatar.component';
 
 @Component({
   selector: 'app-task-card',

@@ -4,12 +4,12 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 
 import {map, Subscription} from 'rxjs';
 
+import {fallbackAvatar} from '../../../commons/fallback-avatar';
 import {UsersService} from '../../../commons/services/users.service';
 import {UserInterface} from '../../../commons/interfaces/user.interface';
-import {fallbackAvatar} from '../../../commons/fallback-avatar';
 import {DynamicSidebarService} from '../../../commons/services/dynamic-sidebar.service';
+import {UserAvatarComponent} from '../../../commons/components/user-avatar/user-avatar.component';
 import {UserCreateUpdateFormInterface} from '../../../commons/interfaces/user-create-update-form-group.interface';
-import {UserAvatarComponent} from "../../../commons/components/user-avatar/user-avatar.component";
 
 @Component({
   selector: 'app-user-create-update',

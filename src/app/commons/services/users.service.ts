@@ -2,9 +2,10 @@ import {Injectable} from '@angular/core';
 
 import {BehaviorSubject} from 'rxjs';
 
-import {UserInterface} from '../interfaces/user.interface';
 import {fallbackAvatar} from '../fallback-avatar';
-import {environment} from "../../../environments/environment.development";
+import {UserInterface} from '../interfaces/user.interface';
+
+import {environment} from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'

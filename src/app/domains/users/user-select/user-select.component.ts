@@ -9,7 +9,7 @@ import {TaskStatePipe} from '../../../commons/pipes/task-state.pipe';
 import {UserInterface} from '../../../commons/interfaces/user.interface';
 import {TaskInterface} from '../../../commons/interfaces/task.interface';
 import {ClickOutsideDirective} from '../../../commons/directives/click-outside.directive';
-import {UserAvatarComponent} from "../../../commons/components/user-avatar/user-avatar.component";
+import {UserAvatarComponent} from '../../../commons/components/user-avatar/user-avatar.component';
 
 @Component({
   selector: 'app-user-select',

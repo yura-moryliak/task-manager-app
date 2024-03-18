@@ -1,14 +1,14 @@
-import {Component, inject, Input, OnDestroy} from "@angular/core";
+import {Component, inject, Input, OnDestroy} from '@angular/core';
 
-import {map, Subscription} from "rxjs";
+import {map, Subscription} from 'rxjs';
 
 import {TaskStateEnum} from '../../commons/enums/task-state.enum';
 import {TasksService} from '../../commons/services/tasks.service';
+import {UsersService} from '../../commons/services/users.service';
 import {UserInterface} from '../../commons/interfaces/user.interface';
 import {TaskInterface} from '../../commons/interfaces/task.interface';
 import {DynamicSidebarService} from '../../commons/services/dynamic-sidebar.service';
 import {TaskCreateUpdateComponent} from './task-create-update/task-create-update.component';
-import {UsersService} from "../../commons/services/users.service";
 
 @Component({
   selector: 'app-task-base',

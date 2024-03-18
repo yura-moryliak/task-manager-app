@@ -9,13 +9,12 @@ import {DeviceDetectorService} from "ngx-device-detector";
 import {TaskCardComponent} from './task-card/task-card.component';
 import {TaskStatePipe} from '../../commons/pipes/task-state.pipe';
 import {TasksService} from '../../commons/services/tasks.service';
+import {TaskStateEnum} from '../../commons/enums/task-state.enum';
+import {UsersService} from '../../commons/services/users.service';
 import {TaskInterface} from '../../commons/interfaces/task.interface';
 import {TaskTableRowComponent} from './task-table-row/task-table-row.component';
 import {DynamicSidebarService} from '../../commons/services/dynamic-sidebar.service';
 import {TaskCreateUpdateComponent} from './task-create-update/task-create-update.component';
-import {TaskStateEnum} from "../../commons/enums/task-state.enum";
-import {UsersService} from "../../commons/services/users.service";
-import {UserInterface} from "../../commons/interfaces/user.interface";
 
 @Component({
   selector: 'app-tasks',

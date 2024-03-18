@@ -2,8 +2,8 @@ import {ComponentRef, Injectable, ViewContainerRef} from '@angular/core';
 
 import {BehaviorSubject, Observable, Subject, take} from 'rxjs';
 
-import {DynamicSidebarComponent} from '../components/dynamic-sidebar/dynamic-sidebar.component';
 import {DynamicSidebarConfigInterface} from '../interfaces/dynamic-sidebar-config.interface';
+import {DynamicSidebarComponent} from '../components/dynamic-sidebar/dynamic-sidebar.component';
 
 @Injectable({
   providedIn: 'root'
