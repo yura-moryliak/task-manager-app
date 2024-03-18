@@ -18,4 +18,14 @@ export class SidebarToggleService {
     this.isSidebarOpened = !this.isSidebarOpened;
     this.sidebarToggleBehaviourSubject.next(this.isSidebarOpened);
   }
+
+  open(): void {
+    this.isSidebarOpened = true;
+    this.sidebarToggleBehaviourSubject.next(this.isSidebarOpened);
+  }
+
+  close(): void {
+    this.isSidebarOpened = false;
+    this.sidebarToggleBehaviourSubject.next(this.isSidebarOpened);
+  }
 }

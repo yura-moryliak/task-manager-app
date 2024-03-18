@@ -1,11 +1,11 @@
-<main class="app-main">
+<main class="app-main"
+      appSwipe
+      (swipeLeft)="onSwipeLeft()"
+      (swipeRight)="onSwipeRight()">
 
   <app-nav-bar></app-nav-bar>
 
-  <section class="app-main-container"
-           appSwipe
-           (swipeLeft)="onSwipeLeft()"
-           (swipeRight)="onSwipeRight()">
+  <section class="app-main-container">
 
     <app-sidebar></app-sidebar>
 

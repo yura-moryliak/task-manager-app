@@ -2,6 +2,8 @@ import {Component, inject, OnInit, ViewContainerRef, ViewEncapsulation} from '@a
 import {CommonModule} from '@angular/common';
 import {RouterOutlet} from '@angular/router';
 
+import {DeviceDetectorService} from 'ngx-device-detector';
+
 import {SwipeDirective} from './commons/directives/swipe.directive';
 import {SidebarToggleService} from './commons/services/sidebar-toggle.service';
 import {NavBarComponent} from './commons/components/nav-bar/nav-bar.component';
@@ -19,18 +21,29 @@ import {DynamicSidebarService} from './commons/services/dynamic-sidebar.service'
 export class AppComponent implements OnInit {
 
   private rootVcr: ViewContainerRef = inject(ViewContainerRef);
+  private deviceDetectorService: DeviceDetectorService = inject(DeviceDetectorService);
   private dynamicSidebarService: DynamicSidebarService = inject(DynamicSidebarService);
   private sidebarToggleService: SidebarToggleService = inject(SidebarToggleService);
+
+  isDeviceMobile: boolean = this.deviceDetectorService.isMobile(this.deviceDetectorService.userAgent);
 
   ngOnInit(): void {
     this.dynamicSidebarService.setViewContainerRef(this.rootVcr);
   }
 
   onSwipeLeft(): void {
-    this.sidebarToggleService.toggle();
+    if (!this.isDeviceMobile) {
+      return;
+    }
+
+    this.sidebarToggleService.close();
   }
 
   onSwipeRight(): void {
-    this.sidebarToggleService.toggle();
+    if (!this.isDeviceMobile) {
+      return;
+    }
+
+    this.sidebarToggleService.open();
   }
 }
