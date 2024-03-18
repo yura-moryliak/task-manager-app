@@ -7,11 +7,12 @@ import {TaskStateEnum} from '../../../commons/enums/task-state.enum';
 import {UserInterface} from '../../../commons/interfaces/user.interface';
 import {DynamicSidebarService} from '../../../commons/services/dynamic-sidebar.service';
 import {UserCreateUpdateComponent} from '../user-create-update/user-create-update.component';
+import {UserAvatarComponent} from "../../../commons/components/user-avatar/user-avatar.component";
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [CommonModule, TaskStatePipe],
+  imports: [CommonModule, TaskStatePipe, UserAvatarComponent],
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
   encapsulation: ViewEncapsulation.None

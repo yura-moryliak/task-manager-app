@@ -9,11 +9,12 @@ import {UserInterface} from '../../../commons/interfaces/user.interface';
 import {fallbackAvatar} from '../../../commons/fallback-avatar';
 import {DynamicSidebarService} from '../../../commons/services/dynamic-sidebar.service';
 import {UserCreateUpdateFormInterface} from '../../../commons/interfaces/user-create-update-form-group.interface';
+import {UserAvatarComponent} from "../../../commons/components/user-avatar/user-avatar.component";
 
 @Component({
   selector: 'app-user-create-update',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, UserAvatarComponent],
   templateUrl: './user-create-update.component.html',
   styleUrls: ['./user-create-update.component.scss']
 })

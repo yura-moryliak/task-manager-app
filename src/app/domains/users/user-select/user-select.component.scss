@@ -87,11 +87,7 @@
         opacity: $common-disable-opacity;
       }
 
-      img {
-        width: 40px;
-        height: 40px;
-        object-fit: cover;
-        border-radius: 100%;
+      app-user-avatar {
         margin-right: 10px;
       }
     }

@@ -17,7 +17,12 @@
     <td>
 
       <div class="app-task-assignee" *ngIf="task.assignee; else noAssignee">
-        <img [src]="task.assignee.avatarBae64" alt="{{ task.assignee.firstName }} {{ task.assignee.lastName }}">
+
+        <app-user-avatar
+          [src]="task.assignee.avatarBae64"
+          alt="{{ task.assignee.firstName }} {{ task.assignee.lastName }}">
+        </app-user-avatar>
+
         {{ task.assignee.firstName }} {{ task.assignee.lastName }}
       </div>
 

@@ -12,8 +12,13 @@
     </div>
 
     <div class="side-container" *ngIf="task.assignee; else noAssignee">
-      <img [src]="task.assignee.avatarBae64" alt="{{ task.assignee.firstName }} {{ task.assignee.lastName }}">
-      {{ task.assignee.firstName }} {{ task.assignee.lastName[0] + '.' }}
+
+      <app-user-avatar
+        [src]="task.assignee.avatarBae64"
+        alt="{{ task.assignee.firstName }} {{ task.assignee.lastName }}">
+      </app-user-avatar>
+
+      <span>{{ task.assignee.firstName }} {{ task.assignee.lastName[0] + '.' }}</span>
     </div>
 
     <ng-template #noAssignee>

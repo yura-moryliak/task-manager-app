@@ -5,7 +5,12 @@
     <div class="app-user-card-info">
 
       <div class="side-container">
-        <img [src]="user.avatarBae64" alt="{{ user.firstName }} {{ user.lastName }}" />
+
+        <app-user-avatar
+          [src]="user.avatarBae64"
+          alt="{{ user.firstName }} {{ user.lastName }}">
+        </app-user-avatar>
+        
       </div>
 
       <div class="side-container">

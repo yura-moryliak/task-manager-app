@@ -20,7 +20,12 @@
            *ngFor="let user of usersList"
            (click)="selectUser(user)"
            [ngClass]="{ 'selected': selectedUser && selectedUser.id === user.id, 'disabled': user.disabled }">
-        <img [src]="user.avatarBae64" alt="{{ user.firstName }} {{ user.lastName }}">
+
+        <app-user-avatar
+          [src]="user.avatarBae64"
+          alt="{{ user.firstName }} {{ user.lastName }}">
+        </app-user-avatar>
+
         <span>
           {{ user.firstName }} {{ user.lastName }}
           {{ user.disabled ? ' - ' + user.task?.name + ' ' + (user.task?.state! | taskState) : '' }}

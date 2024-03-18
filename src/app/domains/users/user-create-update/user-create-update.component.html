@@ -10,7 +10,14 @@
     </div>
 
     <div class="app-user-upload-avatar-actions">
-      <img [src]="form.controls.avatarBae64.value" alt="avatar" />
+
+      <app-user-avatar
+        [src]="form.controls.avatarBae64.value!"
+        [width]="85"
+        [height]="85"
+        alt="avatar">
+      </app-user-avatar>
+
       <button class="app-button-primary">
         <label for="avatar">
           Change avatar
