@@ -5,4 +5,10 @@
     <span>Tasks management app</span>
   </div>
 
+  <div class="app-nav-bar-actions" *ngIf="isDeviceMobile">
+    <button class="app-button-rounded" (click)="toggleSidebar()">
+      <i class="pi pi-bars"></i>
+    </button>
+  </div>
+
 </nav>

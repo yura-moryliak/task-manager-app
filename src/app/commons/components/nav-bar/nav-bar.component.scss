@@ -3,7 +3,8 @@
 .app-nav-bar {
   display: flex;
   align-items: center;
-  height: 50px;
+  justify-content: space-between;
+  height: 65px;
   padding: 0 10px;
   border-bottom: 1px solid $border-color;
 
@@ -19,5 +20,10 @@
     span {
       margin-left: 10px;
     }
+  }
+
+  .app-nav-bar-actions {
+    display: flex;
+    justify-content: flex-end;
   }
 }
