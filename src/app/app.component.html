@@ -2,7 +2,10 @@
 
   <app-nav-bar></app-nav-bar>
 
-  <section class="app-main-container">
+  <section class="app-main-container"
+           appSwipe
+           (swipeLeft)="onSwipeLeft()"
+           (swipeRight)="onSwipeRight()">
 
     <app-sidebar></app-sidebar>
 
