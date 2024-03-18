@@ -1,3 +1,19 @@
 @import "../../../assets/mixins/domain-scaffold.mixin";
 
 @include domain-scaffold;
+
+.users-container {
+
+  .side-container {
+
+    &:last-of-type {
+
+      button {
+        margin-right: 10px;
+      }
+
+    }
+
+  }
+
+}

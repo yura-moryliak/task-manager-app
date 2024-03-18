@@ -5,6 +5,9 @@
   height: 100%;
   padding: 10px;
   border-right: 1px solid $border-color;
+  animation-name: fadeIn;
+  animation-timing-function: ease-in;
+  animation-duration: $common-animation-duration;
 
   ul {
     margin: 0;
