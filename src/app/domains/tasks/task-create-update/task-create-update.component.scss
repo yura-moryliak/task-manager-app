@@ -4,4 +4,11 @@
   h4 {
     border-bottom: 1px solid $border-color;
   }
+
+  .app-task-without-user-error {
+    span {
+      color: $error-color;
+      font-size: 12px;
+    }
+  }
 }

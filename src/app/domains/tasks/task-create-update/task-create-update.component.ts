@@ -40,6 +40,8 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
   taskToUpdate: TaskInterface | undefined;
   assignee: UserInterface | undefined;
 
+  showErrorWhenNoUserAssignedToTaskInProgress = false;
+
   ngOnInit(): void {
     this.initUpdateTask();
   }
@@ -50,7 +52,55 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
   }
 
   selectedTaskState(taskState: TaskStateBadgeInterface): void {
+
+    // DIRTY HACKS => need refactoring here
+    if (!this.assignee && taskState.state === TaskStateEnum.InQueue) {
+      this.showErrorWhenNoUserAssignedToTaskInProgress = false;
+    }
+
+    if (taskState.state === TaskStateEnum.InProgress && !this.assignee) {
+      this.showErrorWhenNoUserAssignedToTaskInProgress = true;
+    }
+
+    if (taskState.state === TaskStateEnum.Done && !this.assignee) {
+      this.showErrorWhenNoUserAssignedToTaskInProgress = true;
+    }
+
     this.taskStateBadge = taskState;
+  }
+
+  selectedUser(user: UserInterface | undefined): void {
+
+    if (!user) {
+      this.assignee = undefined;
+    }
+
+    // DIRTY HACKS => need refactoring here
+    if (!user && this.taskStateBadge?.state === TaskStateEnum.InProgress) {
+      this.showErrorWhenNoUserAssignedToTaskInProgress = true;
+      return;
+    }
+
+    if (!user && this.taskStateBadge?.state === TaskStateEnum.Done) {
+      this.showErrorWhenNoUserAssignedToTaskInProgress = true;
+      return;
+    }
+
+    if (user && user.task && user.task.id === this.taskToUpdate?.id) {
+      user.task = undefined;
+      this.assignee = user;
+      return;
+    }
+
+    this.assignee = user;
+
+    if (this.taskStateBadge?.state === TaskStateEnum.InProgress) {
+      this.showErrorWhenNoUserAssignedToTaskInProgress = false;
+    }
+
+    if (this.taskStateBadge?.state === TaskStateEnum.Done) {
+      this.showErrorWhenNoUserAssignedToTaskInProgress = false;
+    }
   }
 
   updateTask(): void {
@@ -89,17 +139,6 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
 
     this.taskToUpdate.assignee = this.assignee;
     this.dynamicSidebarService.close(this.assignee);
-  }
-
-  selectedUser(user: UserInterface | undefined): void {
-
-    if (user && user.task && user.task.id === this.taskToUpdate?.id) {
-      user.task = undefined;
-      this.assignee = user;
-      return;
-    }
-
-    this.assignee = user;
   }
 
   ngOnDestroy(): void {
