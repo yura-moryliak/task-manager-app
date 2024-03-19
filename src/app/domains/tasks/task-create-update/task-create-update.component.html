@@ -28,6 +28,10 @@
     </div>
   </div>
 
+  <div *ngIf="showErrorWhenNoUserAssignedToTaskInProgress" class="app-task-without-user-error">
+    <span>No selected user for task</span>
+  </div>
+
   <app-user-select
     *ngIf="isUpdateMode"
     [user]="taskToUpdate && taskToUpdate.assignee"
@@ -42,7 +46,10 @@
   </button>
 
   <button type="button"
-          class="app-button-primary" *ngIf="isUpdateMode" [disabled]="form.invalid" (click)="updateTask()">
+          class="app-button-primary"
+          *ngIf="isUpdateMode"
+          [disabled]="form.invalid || showErrorWhenNoUserAssignedToTaskInProgress"
+          (click)="updateTask()">
     <span>Update task</span>
   </button>
 
