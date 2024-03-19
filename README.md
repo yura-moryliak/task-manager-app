@@ -23,3 +23,5 @@ Tasks can be assigned to users
 4. When listing the tasks it should be visible their names, dates of creation and modification, assigned users and states at least
 5. When listing the users it should be visible their names and assigned tasks at least
 6. Data storing can be done into memory or browser's storage. 
+
+Deployed aplication: https://task-manager-app-2ja9.onrender.com/tasks
