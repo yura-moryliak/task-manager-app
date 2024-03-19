@@ -92,6 +92,13 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
   }
 
   selectedUser(user: UserInterface | undefined): void {
+
+    if (user && user.task && user.task.id === this.taskToUpdate?.id) {
+      user.task = undefined;
+      this.assignee = user;
+      return;
+    }
+
     this.assignee = user;
   }
 
