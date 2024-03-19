@@ -29,7 +29,7 @@ export class UserCreateUpdateComponent implements OnInit, OnDestroy {
   form: FormGroup<UserCreateUpdateFormInterface> = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
-    avatarBae64: new FormControl(fallbackAvatar)
+    avatarBase64: new FormControl(fallbackAvatar)
   });
   isUpdateMode: boolean = false;
   isAvatarMaxSizeError: boolean = false;
@@ -63,8 +63,8 @@ export class UserCreateUpdateComponent implements OnInit, OnDestroy {
 
     reader.onload = (): void => {
       const base64String: string = (reader.result as string).split(',')[1];
-      this.form.controls.avatarBae64.setValue(`data:image/jpeg;base64,${base64String}`);
-      this.form.controls.avatarBae64.setErrors(null);
+      this.form.controls.avatarBase64.setValue(`data:image/jpeg;base64,${base64String}`);
+      this.form.controls.avatarBase64.setErrors(null);
     }
     reader.onerror = (error: ProgressEvent<FileReader>) => console.log(error)
     reader.readAsDataURL(file);
@@ -82,7 +82,7 @@ export class UserCreateUpdateComponent implements OnInit, OnDestroy {
 
     this.userToUpdate.firstName = this.form.value.firstName as string;
     this.userToUpdate.lastName = this.form.value.lastName as string;
-    this.userToUpdate.avatarBase64 = this.form.value.avatarBae64 as string;
+    this.userToUpdate.avatarBase64 = this.form.value.avatarBase64 as string;
     this.usersService.update(this.userToUpdate);
     this.dynamicSidebarService.close();
   }
@@ -99,7 +99,7 @@ export class UserCreateUpdateComponent implements OnInit, OnDestroy {
           this.isUpdateMode = true;
           this.userToUpdate = user;
 
-          this.form.controls.avatarBae64.setValue(user.avatarBase64);
+          this.form.controls.avatarBase64.setValue(user.avatarBase64);
           this.form.controls.firstName.setValue(user.firstName);
           this.form.controls.lastName.setValue(user.lastName);
         }
