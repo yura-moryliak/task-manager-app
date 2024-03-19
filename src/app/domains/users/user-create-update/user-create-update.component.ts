@@ -82,7 +82,7 @@ export class UserCreateUpdateComponent implements OnInit, OnDestroy {
 
     this.userToUpdate.firstName = this.form.value.firstName as string;
     this.userToUpdate.lastName = this.form.value.lastName as string;
-    this.userToUpdate.avatarBae64 = this.form.value.avatarBae64 as string;
+    this.userToUpdate.avatarBase64 = this.form.value.avatarBae64 as string;
     this.usersService.update(this.userToUpdate);
     this.dynamicSidebarService.close();
   }
@@ -99,7 +99,7 @@ export class UserCreateUpdateComponent implements OnInit, OnDestroy {
           this.isUpdateMode = true;
           this.userToUpdate = user;
 
-          this.form.controls.avatarBae64.setValue(user.avatarBae64);
+          this.form.controls.avatarBae64.setValue(user.avatarBase64);
           this.form.controls.firstName.setValue(user.firstName);
           this.form.controls.lastName.setValue(user.lastName);
         }

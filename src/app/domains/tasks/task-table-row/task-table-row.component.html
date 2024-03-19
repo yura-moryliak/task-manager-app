@@ -19,7 +19,7 @@
       <div class="app-task-assignee" *ngIf="task.assignee; else noAssignee">
 
         <app-user-avatar
-          [src]="task.assignee.avatarBae64"
+          [src]="task.assignee.avatarBase64"
           alt="{{ task.assignee.firstName }} {{ task.assignee.lastName }}">
         </app-user-avatar>
 

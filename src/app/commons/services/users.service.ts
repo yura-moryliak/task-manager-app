@@ -25,21 +25,21 @@ export class UsersService {
         id: 1,
         firstName: 'Arnold',
         lastName: 'Schwarzenegger',
-        avatarBae64: fallbackAvatar,
+        avatarBase64: fallbackAvatar,
         disabled: false
       },
       {
         id: 2,
         firstName: 'Lillu',
         lastName: 'Dallas',
-        avatarBae64: fallbackAvatar,
+        avatarBase64: fallbackAvatar,
         disabled: false
       },
       {
         id: 3,
         firstName: 'Pogo',
         lastName: 'Duranga',
-        avatarBae64: fallbackAvatar,
+        avatarBase64: fallbackAvatar,
         disabled: false
       }
     ];
