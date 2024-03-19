@@ -52,39 +52,20 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
   }
 
   selectedTaskState(taskState: TaskStateBadgeInterface): void {
-
-    // DIRTY HACKS => need refactoring here
-    if (!this.assignee && taskState.state === TaskStateEnum.InQueue) {
-      this.showErrorWhenNoUserAssignedToTaskInProgress = false;
-    }
-
-    if (taskState.state === TaskStateEnum.InProgress && !this.assignee) {
-      this.showErrorWhenNoUserAssignedToTaskInProgress = true;
-    }
-
-    if (taskState.state === TaskStateEnum.Done && !this.assignee) {
-      this.showErrorWhenNoUserAssignedToTaskInProgress = true;
-    }
-
     this.taskStateBadge = taskState;
+
+    const isTaskInProgressOrDone: boolean =
+      taskState.state === TaskStateEnum.InProgress ||
+      taskState.state === TaskStateEnum.Done;
+
+    this.showErrorWhenNoUserAssignedToTaskInProgress = !this.assignee && isTaskInProgressOrDone;
   }
 
   selectedUser(user: UserInterface | undefined): void {
 
-    if (!user) {
-      this.assignee = undefined;
-    }
-
-    // DIRTY HACKS => need refactoring here
-    if (!user && this.taskStateBadge?.state === TaskStateEnum.InProgress) {
-      this.showErrorWhenNoUserAssignedToTaskInProgress = true;
-      return;
-    }
-
-    if (!user && this.taskStateBadge?.state === TaskStateEnum.Done) {
-      this.showErrorWhenNoUserAssignedToTaskInProgress = true;
-      return;
-    }
+    const isTaskInProgressOrDone =
+      this.taskStateBadge?.state === TaskStateEnum.InProgress ||
+      this.taskStateBadge?.state === TaskStateEnum.Done;
 
     if (user && user.task && user.task.id === this.taskToUpdate?.id) {
       user.task = undefined;
@@ -92,15 +73,19 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
       return;
     }
 
+    if (!user && isTaskInProgressOrDone) {
+      this.showErrorWhenNoUserAssignedToTaskInProgress = true;
+    }
+
+    if (!user && !isTaskInProgressOrDone) {
+      this.showErrorWhenNoUserAssignedToTaskInProgress = true;
+    }
+
+    if (user && isTaskInProgressOrDone) {
+      this.showErrorWhenNoUserAssignedToTaskInProgress = false;
+    }
+
     this.assignee = user;
-
-    if (this.taskStateBadge?.state === TaskStateEnum.InProgress) {
-      this.showErrorWhenNoUserAssignedToTaskInProgress = false;
-    }
-
-    if (this.taskStateBadge?.state === TaskStateEnum.Done) {
-      this.showErrorWhenNoUserAssignedToTaskInProgress = false;
-    }
   }
 
   updateTask(): void {
