@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms';
 
 import {Subscription} from 'rxjs';
 
-import {DeviceDetectorService} from "ngx-device-detector";
+import {DeviceDetectorService} from 'ngx-device-detector';
 
 import {TaskCardComponent} from './task-card/task-card.component';
 import {TaskStatePipe} from '../../commons/pipes/task-state.pipe';
