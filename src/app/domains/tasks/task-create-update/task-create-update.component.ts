@@ -136,6 +136,7 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
       .pipe(map((data) => data as TaskInterface))
       .subscribe((task: TaskInterface): void => {
       if (task) {
+        console.log(task);
         this.isUpdateMode = true;
         this.taskToUpdate = task;
         this.form.setValue({ name: task.name, description: task.description });

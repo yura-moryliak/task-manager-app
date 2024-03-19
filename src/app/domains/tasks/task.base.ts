@@ -47,7 +47,9 @@ export abstract class TaskBase implements OnDestroy {
   deleteOne(event: Event, task: TaskInterface): void {
     event.stopPropagation();
 
-    if (task.state === TaskStateEnum.Done && !!task.assignee) {
+    const taskStateDoneOrInQueue: boolean = task.state === TaskStateEnum.Done || task.state === TaskStateEnum.InQueue;
+
+    if (taskStateDoneOrInQueue && !!task.assignee) {
       this.tasksService.delete(task.id);
       task.assignee.task = undefined;
       this.userService.update(task.assignee);
