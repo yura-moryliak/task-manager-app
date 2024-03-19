@@ -40,7 +40,7 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
   taskToUpdate: TaskInterface | undefined;
   assignee: UserInterface | undefined;
 
-  showErrorWhenNoUserAssignedToTaskInProgress: boolean = false;
+  showErrorWhenNoUserAssignedToTask: boolean = false;
 
   ngOnInit(): void {
     this.initUpdateTask();
@@ -58,7 +58,7 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
       taskState.state === TaskStateEnum.InProgress ||
       taskState.state === TaskStateEnum.Done;
 
-    this.showErrorWhenNoUserAssignedToTaskInProgress = !this.assignee && isTaskInProgressOrDone;
+    this.showErrorWhenNoUserAssignedToTask = !this.assignee && isTaskInProgressOrDone;
   }
 
   selectedUser(user: UserInterface | undefined): void {
@@ -73,17 +73,17 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
     }
 
     if (!user && isTaskInProgressOrDone) {
-      this.showErrorWhenNoUserAssignedToTaskInProgress = true;
+      this.showErrorWhenNoUserAssignedToTask = true;
     }
 
     if (!user && !isTaskInProgressOrDone) {
-      this.showErrorWhenNoUserAssignedToTaskInProgress = true;
+      this.showErrorWhenNoUserAssignedToTask = true;
       this.assignee = undefined;
       return;
     }
 
     if (user && isTaskInProgressOrDone) {
-      this.showErrorWhenNoUserAssignedToTaskInProgress = false;
+      this.showErrorWhenNoUserAssignedToTask = false;
     }
 
     this.assignee = user;
