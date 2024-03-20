@@ -67,7 +67,6 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
       this.taskStateBadge?.state === TaskStateEnum.Done;
 
     if (user && user.task && user.task.id === this.taskToUpdate?.id) {
-      user.task = undefined;
       this.assignee = user;
       return;
     }
