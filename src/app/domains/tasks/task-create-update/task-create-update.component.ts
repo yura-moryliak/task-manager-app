@@ -124,10 +124,6 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
       return;
     }
 
-
-    console.log(this.taskToUpdate);
-    console.log(this.assignee);
-
     this.taskToUpdate.assignee = this.assignee;
     this.dynamicSidebarService.close(this.assignee);
   }
