@@ -69,6 +69,8 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
     if (user && user.task && user.task.id === this.taskToUpdate?.id) {
       this.assignee = user;
       return;
+    } else if (this.assignee && this.assignee.task) {
+      this.assignee.task = undefined;
     }
 
     if (!user && isTaskInProgressOrDone) {
@@ -121,6 +123,10 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
       this.dynamicSidebarService.close();
       return;
     }
+
+
+    console.log(this.taskToUpdate);
+    console.log(this.assignee);
 
     this.taskToUpdate.assignee = this.assignee;
     this.dynamicSidebarService.close(this.assignee);
