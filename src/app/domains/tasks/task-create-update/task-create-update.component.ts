@@ -62,6 +62,7 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
   }
 
   selectedUser(user: UserInterface | undefined): void {
+    // TODO Need refactoring and simplification to clean up this mess
     const isTaskInProgressOrDone: boolean =
       this.taskStateBadge?.state === TaskStateEnum.InProgress ||
       this.taskStateBadge?.state === TaskStateEnum.Done;
@@ -91,6 +92,7 @@ export class TaskCreateUpdateComponent implements OnInit, OnDestroy {
   }
 
   updateTask(): void {
+    // TODO Need refactoring and simplification to clean up this mess
     if (!this.taskToUpdate) {
       return;
     }
